@@ -13,18 +13,31 @@ import java.util.List;
 
 public interface TeacherListContract {
     interface View extends BaseView<Presenter> {
+
         boolean isActive();
+
         void showTeachers(List<Teacher> teachers);
+
         void showEmptyError();
+
         void showFilterResult();
+
         void showFilterAll();
+
         void showFilterError();
+
         void showLoadingIndicator(boolean active);
+
         void showDetailsUi(int teacherId);
+
     }
     interface Presenter extends BasePresenter {
+
         void loadTasks(boolean forceUpdate);
+
         void openTeacherDetails(Teacher teacher);
+
         void filterName(String input);
+
     }
 }

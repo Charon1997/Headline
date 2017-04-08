@@ -10,8 +10,20 @@ import com.nmid.headline.BaseView;
 public interface DetailWebViewContract {
     interface View extends BaseView<Presenter> {
 
+        boolean isActive();
+
+        void showBaseUrl(String url);
+
+        void showHtml(String html);
+
+        void showError();
+
+        void showLoadingIndicator(boolean active);
+
     }
     interface Presenter extends BasePresenter {
+
+        void loadHtml(String html);
 
     }
 }
