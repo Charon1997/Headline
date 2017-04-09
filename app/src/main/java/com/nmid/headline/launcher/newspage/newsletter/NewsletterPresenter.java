@@ -1,12 +1,13 @@
-package com.nmid.headline.launcher.newspage.newslist;
+package com.nmid.headline.launcher.newspage.newsletter;
 
 import com.nmid.headline.data.bean.New;
+import com.nmid.headline.launcher.newspage.NewsPageContract;
 
 /**
- * Created by xwysu on 2016/12/4.
+ * Created by xwysu on 2017/4/9.
  */
 
-public class NewsListPresenter implements NewsListContract.Presenter{
+public class NewsletterPresenter implements NewsPageContract.Presenter {
     @Override
     public void start() {
 

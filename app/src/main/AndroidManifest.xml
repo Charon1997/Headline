@@ -15,10 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".curriculumdetail.CurriculumDetaiActivity"></activity>
-        <activity android:name=".introducepage.IntroducePageActivity"></activity>
-        <activity android:name=".login.LoginActivity"></activity>
-        <activity android:name=".detailwebview.DetailWebViewActivity"></activity>
+        <activity android:name=".curriculumdetail.CurriculumDetaiActivity" />
+        <activity android:name=".introducepage.IntroducePageActivity" />
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".detailwebview.DetailWebViewActivity" />
     </application>
 
 </manifest>

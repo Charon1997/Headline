@@ -1,9 +1,8 @@
 package com.nmid.headline.launcher.newspage;
 
-import android.app.Fragment;
-
 import com.nmid.headline.BasePresenter;
 import com.nmid.headline.BaseView;
+import com.nmid.headline.data.bean.New;
 
 import java.util.List;
 
@@ -17,16 +16,29 @@ public interface NewsPageContract {
 
         boolean isActive();
 
-        void showDefaultFra();
+        void showLoadingIndicator(boolean active);
+
+        void showEmptyError();
+
+        void showOldnews(List<New> oldNews);
 
         void showError();
 
-        void showTab();
+        void showNews(List<New> news);
 
-        void showFragments(List<Fragment> fragments);
+        void showMoreNews(List<New> addNews);
+
+        void showNewDetail(New item);
 
     }
     interface Presenter extends BasePresenter{
 
+        void loadNews();
+
+        void loadOldNews();
+
+        void loadMoreNews(int lastId);
+
+        void openNewDetail(New item);
     }
 }
