@@ -7,5 +7,32 @@
     android:layout_height="match_parent"
     tools:context="com.nmid.headline.launcher.MainActivity">
 
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        app:itemBackground="?attr/selectableItemBackground"
+        app:itemIconTint="@drawable/selector_bottomnavigation"
+        app:itemTextColor="@drawable/selector_bottomnavigation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/menu_bottom_nav" />
+
+    <FrameLayout
+        android:id="@+id/contain"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

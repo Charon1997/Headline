@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/bottom_nav_news"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="@string/bottom_nav_tab1"
+        android:icon="@drawable/ic_import_contacts_black_36dp"/>
+    <item android:id="@+id/bottom_nav_newsletter"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="@string/bottom_nav_tab2"
+        android:icon="@drawable/ic_turned_in_not_black_36dp"/>
+    <item android:id="@+id/bottom_nav_teachers"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="@string/bottom_nav_tab3"
+        android:icon="@drawable/ic_web_black_36dp"/>
+    <item android:id="@+id/bottom_nav_explore"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="@string/bottom_nav_tab4"
+        android:icon="@drawable/ic_reorder_black_36dp"/>
+</menu>
