@@ -1,5 +1,7 @@
 package com.nmid.headline.launcher.teacherlist;
 
+import android.support.v4.app.Fragment;
+
 import com.nmid.headline.data.bean.Teacher;
 
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
  * Created by xwysu on 2016/12/4.
  */
 
-public class TeacherListFragment implements TeacherListContract.View {
+public class TeacherListFragment extends Fragment implements TeacherListContract.View {
     @Override
     public void setPresenter(TeacherListContract.Presenter presenter) {
 

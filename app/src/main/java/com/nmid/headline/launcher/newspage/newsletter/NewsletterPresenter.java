@@ -24,12 +24,12 @@ public class NewsletterPresenter implements NewsPageContract.Presenter {
     }
 
     @Override
-    public void loadMoreNews(int lastId) {
+    public void loadMoreNews() {
 
     }
 
     @Override
-    public void openNewDetail(New item) {
+    public void openNewDetail(int pos) {
 
     }
 }

@@ -9,6 +9,17 @@ import com.nmid.headline.data.bean.New;
  */
 
 public class NewsRepository implements NewsDataSource{
+
+    private NewsRepository(){
+
+    }
+    private static class SingletonHolder{
+        private static final NewsRepository sInstance=new NewsRepository();
+    }
+    public static NewsRepository getInstance(){
+        return SingletonHolder.sInstance;
+    }
+
     @Override
     public void getNews(@NonNull LoadNewsCallback callback, @NonNull String type, int lastId) {
 

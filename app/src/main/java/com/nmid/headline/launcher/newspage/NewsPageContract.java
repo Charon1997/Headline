@@ -37,8 +37,8 @@ public interface NewsPageContract {
 
         void loadOldNews();
 
-        void loadMoreNews(int lastId);
+        void loadMoreNews();
 
-        void openNewDetail(New item);
+        void openNewDetail(int  pos);
     }
 }

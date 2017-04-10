@@ -1,5 +1,7 @@
 package com.nmid.headline.launcher.newspage.newsletter;
 
+import android.support.v4.app.Fragment;
+
 import com.nmid.headline.data.bean.New;
 import com.nmid.headline.launcher.newspage.NewsPageContract;
 
@@ -9,7 +11,7 @@ import java.util.List;
  * Created by xwysu on 2017/4/9.
  */
 
-public class NewsletterFragment implements NewsPageContract.View {
+public class NewsletterFragment extends Fragment implements NewsPageContract.View {
     @Override
     public void setPresenter(NewsPageContract.Presenter presenter) {
 
