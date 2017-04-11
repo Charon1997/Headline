@@ -23,7 +23,9 @@ public interface DetailWebViewContract {
     }
     interface Presenter extends BasePresenter {
 
-        void loadHtml(String html);
+        void loadHtml();
+
+        void loadUrl();
 
     }
 }

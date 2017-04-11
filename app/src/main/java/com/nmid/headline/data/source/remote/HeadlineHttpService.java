@@ -1,6 +1,7 @@
 package com.nmid.headline.data.source.remote;
 
-import com.nmid.headline.data.bean.HttpResult;
+import com.nmid.headline.data.bean.Content;
+import com.nmid.headline.data.bean.HttpResults;
 import com.nmid.headline.data.bean.New;
 
 import retrofit2.Call;
@@ -20,6 +21,9 @@ public interface HeadlineHttpService {
     int STATUS_ERROR=500;
 
     @GET("/Headline/api/news/fresh")
-    Call<HttpResult<New>> getNews(
-            @Query(ID) int id, @Query(LIMIT) int limit, @Query(TYPE) String type);
+    Call<HttpResults<New>> getNews(
+                    @Query(ID) int id, @Query(LIMIT) int limit, @Query(TYPE) String type);
+    @GET("/Headline/api/news/content")
+    Call<HttpResults<Content>> getNewDetail(
+            @Query(ID) int id, @Query(TYPE) String type);
 }

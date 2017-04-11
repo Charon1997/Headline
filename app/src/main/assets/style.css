@@ -1,0 +1,17 @@
+/*
+ * 设置全局的背景颜色和内边距
+ * Set gloable background color and padding
+ */
+
+ body.gloable {
+     background-color: rgb(243,243,243);
+     padding: 50px 12px 0 16px;
+     line-height : 30px;
+ }
+
+ body.gloable img {
+     max-width: 100%;
+     height: auto;
+     width: auto\9;
+ }
+

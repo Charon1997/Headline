@@ -1,6 +1,7 @@
 package com.nmid.headline.data;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.nmid.headline.data.bean.New;
 
@@ -34,8 +35,16 @@ public interface NewsDataSource {
 
         void onDataNotAvailable();
     }
+    interface LoadDetailCallback{
+
+        void onDetailLoad(String html);
+
+        void onDataNotAvailable();
+    }
 
     void getNews(@NonNull LoadNewsCallback callback,@NonNull String type,int lastId);
+
+    void getNewDetail(@NonNull LoadDetailCallback callback,@NonNull String type,int id);
 
     void getNew(@NonNull GetNewCallback callback,int id,@NonNull String type);
 

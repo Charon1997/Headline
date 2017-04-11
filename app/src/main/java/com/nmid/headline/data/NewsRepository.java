@@ -28,6 +28,11 @@ public class NewsRepository implements NewsDataSource{
     }
 
     @Override
+    public void getNewDetail(@NonNull LoadDetailCallback callback, @NonNull String type, int id) {
+        HttpMethods.getInstance().getNewDetail(callback,type,id);
+    }
+
+    @Override
     public void getNew(@NonNull GetNewCallback callback, int id, @NonNull String type) {
 
     }

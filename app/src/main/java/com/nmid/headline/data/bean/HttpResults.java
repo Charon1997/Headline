@@ -10,7 +10,7 @@ import java.util.List;
  * Created by xwysu on 2017/4/11.
  */
 
-public class HttpResult<T> {
+public class HttpResults<T> {
     @SerializedName("data")
     @Expose
     private List<T> data = new ArrayList<T>();

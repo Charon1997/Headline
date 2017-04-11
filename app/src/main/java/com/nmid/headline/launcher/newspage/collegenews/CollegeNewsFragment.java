@@ -1,5 +1,6 @@
 package com.nmid.headline.launcher.newspage.collegenews;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.nmid.headline.R;
 import com.nmid.headline.data.bean.New;
+import com.nmid.headline.detailwebview.DetailWebViewActivity;
 import com.nmid.headline.launcher.newspage.NewsListAdapter;
 import com.nmid.headline.launcher.newspage.NewsPageContract;
 import com.nmid.headline.util.EndlessRecyclerOnScrollListener;
@@ -154,7 +156,9 @@ public class CollegeNewsFragment extends Fragment implements NewsPageContract.Vi
 
     @Override
     public void showNewDetail(New item) {
-
+        Intent intent=new Intent(getContext(), DetailWebViewActivity.class);
+        intent.putExtra(DetailWebViewActivity.BUNDLE_NEW,item);
+        startActivity(intent);
     }
 
 
