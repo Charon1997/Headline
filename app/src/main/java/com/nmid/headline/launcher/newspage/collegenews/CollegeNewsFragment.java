@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,16 +66,17 @@ public class CollegeNewsFragment extends Fragment implements NewsPageContract.Vi
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         newsList.setLayoutManager(layoutManager);
-        newsList.addOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
-            @Override
-            public void onLoadMore(int current_page) {
-                mPresenter.loadMoreNews();
-            }
-        });
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mPresenter.loadNews();
+            }
+        });
+        newsList.addOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                Log.d("loadmore","called");
+                mPresenter.loadMoreNews();
             }
         });
         adapter.setOnItemClickListener(new NewsListAdapter.OnItemClickListener() {
@@ -140,6 +142,9 @@ public class CollegeNewsFragment extends Fragment implements NewsPageContract.Vi
     @Override
     public void showNews(List<New> news) {
         adapter.notifyAll(news);
+        if (refreshLayout.isRefreshing()){
+            refreshLayout.setRefreshing(false);
+        }
     }
 
     @Override

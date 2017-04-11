@@ -4,6 +4,8 @@
     android:id="@+id/item_news"
     android:layout_width="match_parent"
     android:layout_height="120dp"
+    android:background="?selectableItemBackground"
+    app:cardCornerRadius="4dp"
     android:elevation="4dp">
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

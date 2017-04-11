@@ -3,6 +3,8 @@ package com.nmid.headline.data;
 import android.support.annotation.NonNull;
 
 import com.nmid.headline.data.bean.New;
+import com.nmid.headline.data.source.remote.HeadlineHttpService;
+import com.nmid.headline.data.source.remote.HttpMethods;
 
 /**
  * Created by xwysu on 2017/4/8.
@@ -22,7 +24,7 @@ public class NewsRepository implements NewsDataSource{
 
     @Override
     public void getNews(@NonNull LoadNewsCallback callback, @NonNull String type, int lastId) {
-
+        HttpMethods.getInstance().getNews(callback,lastId, NewsDataSource.DEFAULT_LIMIT,NewsDataSource.TYPE_JINGWEI);
     }
 
     @Override

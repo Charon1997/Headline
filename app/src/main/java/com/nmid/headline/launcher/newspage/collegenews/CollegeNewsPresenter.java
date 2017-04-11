@@ -1,6 +1,7 @@
 package com.nmid.headline.launcher.newspage.collegenews;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.nmid.headline.data.NewsDataSource;
@@ -36,10 +37,11 @@ public class CollegeNewsPresenter implements NewsPageContract.Presenter {
 
     @Override
     public void loadNews() {
-        loadNews(NewsDataSource.FIRST_REQUEST);
         recordId=0;
+        loadNews(NewsDataSource.FIRST_REQUEST);
     }
     private void loadNews(int lastId){
+        Log.d("lastid","lastid "+lastId+" recordID "+recordId);
         mNewsRepository.getNews(new NewsDataSource.LoadNewsCallback() {
             @Override
             public void onNewsLoaded(List<New> news) {
