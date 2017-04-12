@@ -3,10 +3,13 @@ package com.nmid.headline.data.source.remote;
 import android.support.annotation.NonNull;
 
 import com.nmid.headline.data.NewsDataSource;
-import com.nmid.headline.data.bean.Content;
 import com.nmid.headline.data.bean.HttpResults;
 import com.nmid.headline.data.bean.New;
 
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,27 +57,26 @@ public class HttpMethods {
 
             @Override
             public void onFailure(Call<HttpResults<New>> call, Throwable t) {
+                t.printStackTrace();
                 callback.onDataNotAvailable();
             }
         });
     }
     public void getNewDetail(@NonNull NewsDataSource.LoadDetailCallback callback,String type,int id){
-        Call<HttpResults<Content>> call=httpService.getNewDetail(id,type);
-        call.enqueue(new Callback<HttpResults<Content>>() {
+        OkHttpClient client=new OkHttpClient();
+        Request request=new Request.Builder().url(HeadlineHttpService.END_POINT+
+                "/Headline/api/news/content?id="+id+"&type="+type).build();
+        client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
-            public void onResponse(Call<HttpResults<Content>> call, Response<HttpResults<Content>> response) {
-                checkNotNull(response.body());
-                if (response.body().getCode()==HeadlineHttpService.STATUS_OK){
-                    callback.onDetailLoad(response.body().getData().get(0).getContent());
-                }else {
-                    callback.onDataNotAvailable();
-                }
-
+            public void onFailure(okhttp3.Call call, IOException e) {
+                e.printStackTrace();
+                callback.onDataNotAvailable();
             }
 
             @Override
-            public void onFailure(Call<HttpResults<Content>> call, Throwable t) {
-
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                checkNotNull(response);
+                callback.onDetailLoad(response.body().string());
             }
         });
 

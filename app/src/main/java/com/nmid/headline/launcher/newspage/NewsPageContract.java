@@ -39,6 +39,6 @@ public interface NewsPageContract {
 
         void loadMoreNews();
 
-        void openNewDetail(int  pos);
+        void openNewDetail(New aNew);
     }
 }

@@ -14,16 +14,14 @@ import android.widget.Toast;
 
 import com.nmid.headline.R;
 import com.nmid.headline.data.NewsRepository;
-import com.nmid.headline.launcher.newspage.collegenews.CollegeNewsFragment;
-import com.nmid.headline.launcher.newspage.collegenews.CollegeNewsPresenter;
-import com.nmid.headline.launcher.newspage.newsletter.NewsletterFragment;
+import com.nmid.headline.launcher.newspage.NewsPageFragment;
+import com.nmid.headline.launcher.newspage.NewsPagePresenter;
 import com.nmid.headline.launcher.teacherlist.TeacherListFragment;
+import com.nmid.headline.launcher.teacherlist.TeacherListPresenter;
 import com.nmid.headline.launcher.useraction.UserActionFragment;
+import com.nmid.headline.launcher.useraction.UserActionPresenter;
 import com.nmid.headline.util.ActivityUtils;
 import com.nmid.headline.util.BottomNavigationViewHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,11 +33,15 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNav;
     @BindView(R.id.contain)
     FrameLayout contain;
-    CollegeNewsFragment collegeNewsFragment;
-    CollegeNewsPresenter collegeNewsPresenter;
-    NewsletterFragment newsletterFragment;
+    NewsPageFragment collegeNewsFragment;
+    NewsPagePresenter collegeNewsPresenter;
+    NewsPageFragment newsletterFragment;
+    NewsPagePresenter newsletterPresenter;
     TeacherListFragment teacherListFragment;
+    TeacherListPresenter teacherListPresenter;
     UserActionFragment userActionFragment;
+    UserActionPresenter userActionPresenter;
+    Fragment currentFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,27 +49,36 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         actionBar = getSupportActionBar();
         BottomNavigationViewHelper.disableShiftMode(bottomNav);
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction transaction=fragmentManager.beginTransaction();
-        collegeNewsFragment=(CollegeNewsFragment)fragmentManager.findFragmentByTag(CollegeNewsFragment.class.getSimpleName()) ;
+        final FragmentManager fragmentManager=getSupportFragmentManager();
+        actionBar.setTitle(R.string.bottom_nav_tab1);
+        collegeNewsFragment=(NewsPageFragment)fragmentManager.findFragmentByTag(NewsRepository.TYPE_JINGWEI) ;
         if (collegeNewsFragment==null){
-            collegeNewsFragment=CollegeNewsFragment.newInstance();
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),collegeNewsFragment,R.id.contain,CollegeNewsFragment.class.getSimpleName());
+            collegeNewsFragment=NewsPageFragment.newInstance(NewsRepository.TYPE_JINGWEI);
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),collegeNewsFragment,R.id.contain,NewsRepository.TYPE_JINGWEI);
+            currentFragment=collegeNewsFragment;
         }
-        collegeNewsPresenter=new CollegeNewsPresenter(NewsRepository.getInstance(),collegeNewsFragment);
+        collegeNewsPresenter =new NewsPagePresenter(NewsRepository.getInstance(),collegeNewsFragment,NewsRepository.TYPE_JINGWEI);
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.bottom_nav_news:
-                        Toast.makeText(getApplicationContext(),"news",Toast.LENGTH_SHORT).show();
                         actionBar.show();
                         actionBar.setTitle(R.string.bottom_nav_tab1);
-                        collegeNewsFragment=(CollegeNewsFragment)fragmentManager.findFragmentByTag(CollegeNewsFragment.class.getSimpleName()) ;
-                        transaction.show(collegeNewsFragment);
+                        collegeNewsFragment=(NewsPageFragment)fragmentManager.findFragmentByTag(NewsRepository.TYPE_JINGWEI) ;
+                        getSupportFragmentManager().beginTransaction().hide(currentFragment).show(collegeNewsFragment).commit();
+                        currentFragment=collegeNewsFragment;
                         break;
                     case R.id.bottom_nav_newsletter:
-                        Toast.makeText(getApplicationContext(),"newsletter",Toast.LENGTH_SHORT).show();
+                        newsletterFragment=(NewsPageFragment)fragmentManager.findFragmentByTag(NewsRepository.TYPE_NEWS) ;
+                        if (newsletterFragment==null){
+                            newsletterFragment=NewsPageFragment.newInstance(NewsRepository.TYPE_NEWS);
+                            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),newsletterFragment,R.id.contain,NewsRepository.TYPE_NEWS);
+                        }else {
+                            getSupportFragmentManager().beginTransaction().hide(currentFragment).show(newsletterFragment).commit();
+                        }
+                        currentFragment=newsletterFragment;
+                        newsletterPresenter =new NewsPagePresenter(NewsRepository.getInstance(),newsletterFragment,NewsRepository.TYPE_NEWS);
                         actionBar.show();
                         actionBar.setTitle(R.string.bottom_nav_tab2);
                         break;
@@ -82,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                         actionBar.setTitle(R.string.bottom_nav_tab4);
                         break;
                 }
-                transaction.commit();
                 return true;
             }
         });

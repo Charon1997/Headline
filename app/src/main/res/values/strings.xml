@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">Headline</string>
+    <string name="app_name">通信头条</string>
     <string name="bottom_nav_tab1">学院经纬</string>
     <string name="bottom_nav_tab2">校内新闻</string>
     <string name="bottom_nav_tab3">教师博客</string>
     <string name="bottom_nav_tab4">更多</string>
+    <string name="detail_news">新闻详情</string>
+    <string name="detail_teacher">教师详情</string>
 
 </resources>

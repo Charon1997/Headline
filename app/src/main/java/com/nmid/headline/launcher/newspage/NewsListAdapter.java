@@ -45,7 +45,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     }
 
     public interface OnItemClickListener {
-        void OnItemClick(View view, int position);
+        void OnItemClick(View view, int position,New aNew);
     }
 
     private OnItemClickListener onItemClickListener;
@@ -92,7 +92,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     int pos=holder.getLayoutPosition();
-                    onItemClickListener.OnItemClick(holder.itemView,pos);
+                    onItemClickListener.OnItemClick(holder.itemView,pos,news.get(pos));
                 }
             });
         }

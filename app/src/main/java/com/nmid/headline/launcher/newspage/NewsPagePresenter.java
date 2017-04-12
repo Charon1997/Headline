@@ -1,4 +1,4 @@
-package com.nmid.headline.launcher.newspage.collegenews;
+package com.nmid.headline.launcher.newspage;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -17,18 +17,20 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by xwysu on 2017/4/9.
  */
 
-public class CollegeNewsPresenter implements NewsPageContract.Presenter {
+public class NewsPagePresenter implements NewsPageContract.Presenter {
 
     private final NewsRepository mNewsRepository;
     private final NewsPageContract.View mNewsView;
     private boolean mFirstLoad = true;
     //recordId用来记录最后的PID，是实际上的lastId，因为MVP的特性，这样写好一些
     int recordId=0;
+    String type;
 
-    public CollegeNewsPresenter(@NonNull NewsRepository newsRepository,@NonNull NewsPageContract.View view){
+    public NewsPagePresenter(@NonNull NewsRepository newsRepository, @NonNull NewsPageContract.View view,String type){
         mNewsRepository=checkNotNull(newsRepository);
         mNewsView=checkNotNull(view);
         mNewsView.setPresenter(this);
+        this.type=type;
     }
     @Override
     public void start() {
@@ -62,7 +64,7 @@ public class CollegeNewsPresenter implements NewsPageContract.Presenter {
                     mNewsView.showError();
                 }
             }
-        },NewsDataSource.TYPE_JINGWEI,lastId);
+        },type,lastId);
     }
 
     @Override
@@ -76,7 +78,7 @@ public class CollegeNewsPresenter implements NewsPageContract.Presenter {
     }
 
     @Override
-    public void openNewDetail(int pos) {
-
+    public void openNewDetail(New aNew) {
+        mNewsView.showNewDetail(aNew);
     }
 }

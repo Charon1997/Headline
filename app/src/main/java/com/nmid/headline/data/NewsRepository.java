@@ -24,7 +24,7 @@ public class NewsRepository implements NewsDataSource{
 
     @Override
     public void getNews(@NonNull LoadNewsCallback callback, @NonNull String type, int lastId) {
-        HttpMethods.getInstance().getNews(callback,lastId, NewsDataSource.DEFAULT_LIMIT,NewsDataSource.TYPE_JINGWEI);
+        HttpMethods.getInstance().getNews(callback,lastId, NewsDataSource.DEFAULT_LIMIT,type);
     }
 
     @Override

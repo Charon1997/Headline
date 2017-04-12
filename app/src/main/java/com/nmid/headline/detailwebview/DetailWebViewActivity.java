@@ -30,8 +30,8 @@ public class DetailWebViewActivity extends AppCompatActivity {
     public static final String BUNDLE_NEW = "news";
     public static final String BUNDLE_URL = "url";
     public static final String BUNDLE_TYPE = "type";
-    static final int TYPE_TEXT = 0;
-    static final int TYPE_URL = 1;
+    public static final int TYPE_TEXT = 0;
+    public static final int TYPE_URL = 1;
     @BindView(R.id.web_container)
     ConstraintLayout webContainer;
     DetailWebViewPresenter mPresenter;
@@ -48,6 +48,7 @@ public class DetailWebViewActivity extends AppCompatActivity {
         int type=getIntent().getIntExtra(BUNDLE_TYPE,-1);
         switch (type){
             case TYPE_TEXT:
+                actionBar.setTitle(R.string.detail_news);
                 New aNew=getIntent().getParcelableExtra(BUNDLE_NEW);
                 checkNotNull(aNew);
                 DetailWebViewFragment fragment=(DetailWebViewFragment)getSupportFragmentManager().
@@ -60,6 +61,7 @@ public class DetailWebViewActivity extends AppCompatActivity {
                 mPresenter=new DetailWebViewPresenter(aNew, NewsRepository.getInstance(),fragment);
                 break;
             case TYPE_URL:
+                actionBar.setTitle(R.string.detail_teacher);
                 String url=getIntent().getStringExtra(BUNDLE_URL);
                 checkNotNull(url);
                 break;

@@ -72,7 +72,7 @@ public class DetailWebViewFragment extends Fragment implements DetailWebViewCont
 
     @Override
     public boolean isActive() {
-        return false;
+        return isAdded();
     }
 
     @Override
@@ -85,7 +85,12 @@ public class DetailWebViewFragment extends Fragment implements DetailWebViewCont
         String htmlData= "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" /> <body class= \"gloable\"> "
                         + html
                         + "</body>";
-        webview.loadDataWithBaseURL("file:///android_asset/", htmlData, MIME_TYPE, ENCODING, null);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                webview.loadDataWithBaseURL("file:///android_asset/", htmlData, MIME_TYPE, ENCODING, null);
+            }
+        });
     }
 
     @Override

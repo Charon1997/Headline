@@ -1,4 +1,4 @@
-package com.nmid.headline.launcher.newspage.collegenews;
+package com.nmid.headline.launcher.newspage;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,6 @@ import android.view.ViewGroup;
 import com.nmid.headline.R;
 import com.nmid.headline.data.bean.New;
 import com.nmid.headline.detailwebview.DetailWebViewActivity;
-import com.nmid.headline.launcher.newspage.NewsListAdapter;
-import com.nmid.headline.launcher.newspage.NewsPageContract;
 import com.nmid.headline.util.EndlessRecyclerOnScrollListener;
 
 import java.util.ArrayList;
@@ -32,31 +29,33 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by xwysu on 2017/4/9.
  */
 
-public class CollegeNewsFragment extends Fragment implements NewsPageContract.View {
+public class NewsPageFragment extends Fragment implements NewsPageContract.View {
 
+
+    NewsListAdapter adapter;
     @BindView(R.id.news_list)
     RecyclerView newsList;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
 
-    NewsListAdapter adapter;
+    String type;
 
     private NewsPageContract.Presenter mPresenter;
 
-    public CollegeNewsFragment() {
-
+    public NewsPageFragment(String type) {
+        this.type=type;
     }
 
-    public static CollegeNewsFragment newInstance() {
-        return new CollegeNewsFragment();
+    public static NewsPageFragment newInstance(String type) {
+        return new NewsPageFragment(type);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //这里的加载只是为了防止出现NULL，真正的加载是由presenter控制的
-        adapter=new NewsListAdapter(getActivity(),new ArrayList<New>(0));
+        adapter = new NewsListAdapter(getActivity(), new ArrayList<New>(0));
     }
 
     @Nullable
@@ -64,7 +63,6 @@ public class CollegeNewsFragment extends Fragment implements NewsPageContract.Vi
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_news, container, false);
         unbinder = ButterKnife.bind(this, root);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         newsList.setLayoutManager(layoutManager);
@@ -77,17 +75,17 @@ public class CollegeNewsFragment extends Fragment implements NewsPageContract.Vi
         newsList.addOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                Log.d("loadmore","called");
                 mPresenter.loadMoreNews();
             }
         });
         adapter.setOnItemClickListener(new NewsListAdapter.OnItemClickListener() {
             @Override
-            public void OnItemClick(View view, int position) {
-                mPresenter.openNewDetail(position);
+            public void OnItemClick(View view, int position, New aNew) {
+                mPresenter.openNewDetail(aNew);
             }
         });
         newsList.setAdapter(adapter);
+
         return root;
     }
 
@@ -144,7 +142,7 @@ public class CollegeNewsFragment extends Fragment implements NewsPageContract.Vi
     @Override
     public void showNews(List<New> news) {
         adapter.notifyAll(news);
-        if (refreshLayout.isRefreshing()){
+        if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
     }
@@ -156,8 +154,9 @@ public class CollegeNewsFragment extends Fragment implements NewsPageContract.Vi
 
     @Override
     public void showNewDetail(New item) {
-        Intent intent=new Intent(getContext(), DetailWebViewActivity.class);
-        intent.putExtra(DetailWebViewActivity.BUNDLE_NEW,item);
+        Intent intent = new Intent(getContext(), DetailWebViewActivity.class);
+        intent.putExtra(DetailWebViewActivity.BUNDLE_NEW, item);
+        intent.putExtra(DetailWebViewActivity.BUNDLE_TYPE, DetailWebViewActivity.TYPE_TEXT);
         startActivity(intent);
     }
 

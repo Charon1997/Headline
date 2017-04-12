@@ -1,6 +1,5 @@
 package com.nmid.headline.data.source.remote;
 
-import com.nmid.headline.data.bean.Content;
 import com.nmid.headline.data.bean.HttpResults;
 import com.nmid.headline.data.bean.New;
 
@@ -24,6 +23,6 @@ public interface HeadlineHttpService {
     Call<HttpResults<New>> getNews(
                     @Query(ID) int id, @Query(LIMIT) int limit, @Query(TYPE) String type);
     @GET("/Headline/api/news/content")
-    Call<HttpResults<Content>> getNewDetail(
+    Call<String> getNewDetail(
             @Query(ID) int id, @Query(TYPE) String type);
 }
