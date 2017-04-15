@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_news"
     android:layout_width="match_parent"
     android:layout_height="120dp"
     android:background="?selectableItemBackground"
+    android:elevation="4dp"
     app:cardCornerRadius="4dp"
-    android:elevation="4dp">
+    android:layout_marginBottom="8dp">
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,6 +20,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
+            android:singleLine="true"
             android:text="通信学院2013级顺利召开学生学业分析报告大会"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -39,42 +42,38 @@
 
         <ImageView
             android:id="@+id/image1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintBottom_toTopOf="@+id/info"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <ImageView
             android:id="@+id/image2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintBottom_toTopOf="@+id/info"
             app:layout_constraintLeft_toRightOf="@+id/image1"
-            app:layout_constraintRight_toLeftOf="@+id/image3"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:layout_constraintVertical_bias="0.482" />
 
         <ImageView
             android:id="@+id/image3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
             android:layout_marginBottom="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintBottom_toTopOf="@+id/info"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/image2"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:layout_constraintVertical_bias="0.461" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

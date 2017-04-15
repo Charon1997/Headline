@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.nmid.headline.R;
+import com.nmid.headline.data.CourseRepository;
 import com.nmid.headline.data.NewsRepository;
 import com.nmid.headline.launcher.newspage.NewsPageFragment;
 import com.nmid.headline.launcher.newspage.NewsPagePresenter;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         newsletterFragment=(NewsPageFragment)fragmentManager.findFragmentByTag(NewsRepository.TYPE_NEWS) ;
                         if (newsletterFragment==null){
                             newsletterFragment=NewsPageFragment.newInstance(NewsRepository.TYPE_NEWS);
+                            getSupportFragmentManager().beginTransaction().hide(currentFragment).commit();
                             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),newsletterFragment,R.id.contain,NewsRepository.TYPE_NEWS);
                         }else {
                             getSupportFragmentManager().beginTransaction().hide(currentFragment).show(newsletterFragment).commit();
@@ -88,7 +90,16 @@ public class MainActivity extends AppCompatActivity {
                         actionBar.setShowHideAnimationEnabled(false);
                         break;
                     case R.id.bottom_nav_explore:
-                        Toast.makeText(getApplicationContext(),"explore",Toast.LENGTH_SHORT).show();
+                        userActionFragment=(UserActionFragment) fragmentManager.findFragmentByTag(UserActionFragment.class.getSimpleName()) ;
+                        if (userActionFragment==null){
+                            userActionFragment=UserActionFragment.newInstance();
+                            getSupportFragmentManager().beginTransaction().hide(currentFragment).commit();
+                            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),userActionFragment,R.id.contain,UserActionFragment.class.getSimpleName());
+                        }else {
+                            getSupportFragmentManager().beginTransaction().hide(currentFragment).show(userActionFragment).commit();
+                        }
+                        currentFragment=userActionFragment;
+                        userActionPresenter =new UserActionPresenter(userActionFragment);
                         actionBar.show();
                         actionBar.setTitle(R.string.bottom_nav_tab4);
                         break;

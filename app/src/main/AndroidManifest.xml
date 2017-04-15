@@ -15,7 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".curriculumdetail.CurriculumDetaiActivity" />
+        <activity android:name=".courselist.CourseListActivity" />
         <activity android:name=".introducepage.IntroducePageActivity" />
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".detailwebview.DetailWebViewActivity" />

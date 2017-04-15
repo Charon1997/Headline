@@ -70,19 +70,19 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
                 holder.image3.setVisibility(View.GONE);
                 break;
             case 1:
-                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(70,60).centerCrop().into(holder.image1);
+                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(240,135).centerCrop().into(holder.image1);
                 holder.image2.setVisibility(View.GONE);
                 holder.image3.setVisibility(View.GONE);
                 break;
             case 2:
-                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(70,60).centerCrop().into(holder.image1);
-                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(70,60).centerCrop().into(holder.image2);
+                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(240,135).centerCrop().into(holder.image1);
+                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(240,135).centerCrop().into(holder.image2);
                 holder.image1.setVisibility(View.GONE);
                 break;
             case 3:
-                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(70,60).centerCrop().into(holder.image1);
-                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(70,60).centerCrop().into(holder.image2);
-                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(70,60).centerCrop().into(holder.image3);
+                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(240,135).centerCrop().into(holder.image1);
+                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(240,135).centerCrop().into(holder.image2);
+                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(240,135).centerCrop().into(holder.image3);
                 break;
         }
         holder.title.setText(temp.getTitle());

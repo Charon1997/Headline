@@ -11,6 +11,7 @@
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"
         android:layout_height="56dp"
+        app:elevation="2dp"
         app:itemBackground="?attr/selectableItemBackground"
         app:itemIconTint="@drawable/selector_bottomnavigation"
         app:itemTextColor="@drawable/selector_bottomnavigation"
