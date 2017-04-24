@@ -6,6 +6,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import com.nmid.headline.R;
+import com.nmid.headline.data.CourseRepository;
 import com.nmid.headline.util.ActivityUtils;
 
 import butterknife.BindView;
@@ -19,9 +20,8 @@ import butterknife.ButterKnife;
 public class CourseListActivity extends AppCompatActivity {
     @BindView(R.id.courseList_container)
     ConstraintLayout courseListContainer;
-
     CourseListFragment fragment;
-
+    CourseListPresenter mPresenter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,5 +33,6 @@ public class CourseListActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     fragment,R.id.courseList_container,CourseListFragment.class.getSimpleName());
         }
+        mPresenter=new CourseListPresenter(CourseRepository.getInstance(),fragment);
     }
 }
