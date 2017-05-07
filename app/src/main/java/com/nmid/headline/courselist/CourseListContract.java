@@ -30,7 +30,9 @@ public interface CourseListContract {
 
         void saveCurrentWeek(int week);
 
-        void saveStuNum(int stuNum);
+        void saveStuNum(String stuNum);
+
+        void saveDisplayWeek(int week);
 
         void loadCourseList();
 

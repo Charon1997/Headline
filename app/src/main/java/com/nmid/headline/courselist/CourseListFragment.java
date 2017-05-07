@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -58,6 +60,7 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
 
     private List<Course> weekCourses;
     int courseId=0;
+    int currentWeek=0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +72,33 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_courselist, container, false);
         unbinder = ButterKnife.bind(this, root);
+        String[] mItems=getResources().getStringArray(R.array.weeks);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, mItems);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner .setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mPresenter.saveDisplayWeek(position+1);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.saveCurrentWeek(currentWeek);
+            }
+        });
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.saveStuNum(checkNotNull(editText.getText().toString().trim()));
+            }
+        });
         return root;
     }
 
@@ -82,6 +112,7 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
 //        checkNotNull(courses);
         checkNotNull(gridLayout);
         gridLayout.removeViews(20, gridLayout.getChildCount() - 20);
+        courseId=0;
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         //确定每一项子view的宽度和高度，如果不进行这一步，内容将显示不正确
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -149,6 +180,7 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
 
     @Override
     public void showCourseList(List<Course> courses, int week) {
+        currentWeek=week;
         weekCourses=new ArrayList<>();
         checkNotNull(courses);
         for (Course c:courses

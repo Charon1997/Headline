@@ -63,8 +63,15 @@ public class CourseListPresenter implements CourseListContract.Presenter{
     }
 
     @Override
-    public void saveStuNum(int stuNum) {
+    public void saveStuNum(String stuNum) {
+        savedStuNum=stuNum;
+        loadCourseList();
+    }
 
+    @Override
+    public void saveDisplayWeek(int week) {
+        savedWeek=week;
+        loadCourseList();
     }
 
     @Override
