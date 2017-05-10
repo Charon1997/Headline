@@ -23,20 +23,24 @@ public interface CourseListContract {
 
         void setWeekInfo(int week);
 
-        void setStuNum(int stuNum);
+        void setStuNum(String stuNum);
 
     }
     interface Presenter extends BasePresenter {
 
-        void saveCurrentWeek(int week);
+        void backCurrentWeek();
 
         void saveStuNum(String stuNum);
 
+        void getStuNum();
+
         void saveDisplayWeek(int week);
 
-        void loadCourseList();
+        void loadHttpCourseList();
 
         void openCourseDetail();
+
+        void loadOldCourseList();
 
 
     }

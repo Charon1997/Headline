@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.nmid.headline.data.bean.Course;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public interface CourseDataSource {
 
     interface LoadCourseCallback{
 
-        void onCourseLoaded(List<Course> courses);
+        void onCourseLoaded(List<Course> courses,int nowWeek);
 
         void onDataNotAvailable();
 
@@ -23,5 +24,15 @@ public interface CourseDataSource {
 
     void getCourseList(@NonNull LoadCourseCallback callback,String stuNum,String idNum);
 
+    void getCourseOldList(@NonNull LoadCourseCallback callback);
+
+    void saveCourseList(ArrayList<Course> courses);
+
+    String getStuNum();
+
+    void saveStuNum(String stuNum);
+
+
+    int getNowWeek();
 
 }

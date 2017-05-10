@@ -4,11 +4,12 @@ package com.nmid.headline.data.bean;
  * Created by xwysu on 2017/4/12.
  */
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Course {
+public class Course implements Serializable{
 
     @SerializedName("hash_day")
     @Expose

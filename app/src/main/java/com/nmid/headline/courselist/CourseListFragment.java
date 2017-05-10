@@ -61,10 +61,12 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
     private List<Course> weekCourses;
     int courseId=0;
     int currentWeek=0;
+    String[] mItems;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mItems=getResources().getStringArray(R.array.weeks);
     }
 
     @Nullable
@@ -72,10 +74,8 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_courselist, container, false);
         unbinder = ButterKnife.bind(this, root);
-        String[] mItems=getResources().getStringArray(R.array.weeks);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, mItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner .setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -87,10 +87,11 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
 
             }
         });
+        spinner .setAdapter(adapter);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.saveCurrentWeek(currentWeek);
+                mPresenter.backCurrentWeek();
             }
         });
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -127,15 +128,17 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
             for (int rowSpec=1;rowSpec<ROW_MAX;rowSpec++){
                 LinearLayout view= (LinearLayout) layoutInflater.inflate(R.layout.item_course_grid,null);
                 TextView item=(TextView)view.findViewById(R.id.courseItem);
-                if (!isLoaded&&weekCourses.get(courseId).getHashDay()==(columnSpec-1)&&
-                        weekCourses.get(courseId).getBeginLesson()==(rowSpec*2-1)){
-                    c=weekCourses.get(courseId);
-                    item.setText(c.getCourse()+"\n"+c.getClassroom());
-                    courseId++;
-                    if (courseId<weekCourses.size()){
-                        isLoaded=false;
-                    }else {
-                        isLoaded=true;
+                if (!weekCourses.isEmpty()){
+                    if (!isLoaded&&weekCourses.get(courseId).getHashDay()==(columnSpec-1)&&
+                            weekCourses.get(courseId).getBeginLesson()==(rowSpec*2-1)){
+                        c=weekCourses.get(courseId);
+                        item.setText(c.getCourse()+"\n"+c.getClassroom());
+                        courseId++;
+                        if (courseId<weekCourses.size()){
+                            isLoaded=false;
+                        }else {
+                            isLoaded=true;
+                        }
                     }
                 }
                 GridLayout.LayoutParams param = new GridLayout.LayoutParams();
@@ -194,12 +197,13 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
 
     @Override
     public void setWeekInfo(int week) {
-
+        scheduleAllWeek.setText(week+"周");
+        spinner.setSelection(week-1,true);
     }
 
     @Override
-    public void setStuNum(int stuNum) {
-
+    public void setStuNum(String stuNum) {
+        editText.setText(stuNum);
     }
 
     @Override

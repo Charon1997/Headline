@@ -46,7 +46,7 @@ public class CourseHttp {
             public void onResponse(Call<CourseResult<Course>> call, Response<CourseResult<Course>> response) {
                 Log.d(getClass().getSimpleName(),"CourseHttp getCourseList callback");
                 checkNotNull(response.body());
-                callback.onCourseLoaded(response.body().getData());
+                callback.onCourseLoaded(response.body().getData(),response.body().getNowWeek());
             }
 
             @Override
