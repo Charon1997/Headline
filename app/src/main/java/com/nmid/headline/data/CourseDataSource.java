@@ -32,7 +32,8 @@ public interface CourseDataSource {
 
     void saveStuNum(String stuNum);
 
-
     int getNowWeek();
+
+    void saveWeek(int nowWeek);
 
 }

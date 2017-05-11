@@ -41,6 +41,7 @@ public class CourseListPresenter implements CourseListContract.Presenter{
                 if (courses!=null&&!courses.isEmpty()){
                     mCourseRepository.saveCourseList((ArrayList<Course>) courses);
                     mCourseRepository.saveStuNum(savedStuNum);
+                    mCourseRepository.saveWeek(nowWeek);
                     if (mCourseView.isActive()){
                         mCourseView.showCourseList(courses,nowWeek);
                         mCourseView.setWeekInfo(nowWeek);
@@ -68,8 +69,13 @@ public class CourseListPresenter implements CourseListContract.Presenter{
                         mCourseView.setWeekInfo(displayWeek);
                     }else {
                         //未被修改过值，按照返回的显示
-                        mCourseView.showCourseList(courses,nowWeek);
-                        mCourseView.setWeekInfo(nowWeek);
+                        if (nowWeek!=-1){
+                            mCourseView.showCourseList(courses,nowWeek);
+                            mCourseView.setWeekInfo(nowWeek);
+                        }else {
+                            loadHttpCourseList();
+                        }
+
                     }
 
                 }
