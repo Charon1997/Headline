@@ -36,4 +36,7 @@ public interface CourseDataSource {
 
     void saveWeek(int nowWeek);
 
+    List<Course> getTodayCourse();
+
+
 }

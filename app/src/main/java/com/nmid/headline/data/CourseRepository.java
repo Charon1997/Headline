@@ -98,6 +98,20 @@ public class CourseRepository implements CourseDataSource{
         mACache.put(KEY_FIRSTDAY,date);
     }
 
+    @Override
+    public List<Course> getTodayCourse() {
+        List<Course> result=(ArrayList<Course>)mACache.getAsObject(KEY_COURSE);
+        List<Course> dayCourse=new ArrayList<>();
+        int dayOfWeek=LocalDate.now().getDayOfWeek().getValue()-3;
+        for (Course c: result
+             ) {
+            if (c.getWeek().contains(getNowWeek())&&c.getHashDay()==dayOfWeek){
+                dayCourse.add(c);
+            }
+        }
+        return dayCourse;
+    }
+
     private static class SingletonHolder{
         private static final CourseRepository sInstance=new CourseRepository();
     }

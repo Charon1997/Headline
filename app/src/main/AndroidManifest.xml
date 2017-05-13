@@ -22,6 +22,14 @@
         <activity android:name=".introducepage.IntroducePageActivity" />
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".detailwebview.DetailWebViewActivity" />
+        //桌面小部件
+        <receiver android:name=".appwidget.CourseAppWidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_provider_info"/>
+        </receiver>
     </application>
 
 </manifest>
