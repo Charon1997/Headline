@@ -6,5 +6,6 @@
     <string name="bottom_nav_tab4">更多</string>
     <string name="detail_news">新闻详情</string>
     <string name="detail_teacher">教师详情</string>
+    <string name="course_title">学生课表</string>
 
 </resources>

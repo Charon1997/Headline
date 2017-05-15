@@ -3,7 +3,9 @@ package com.nmid.headline.courselist;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.nmid.headline.R;
 import com.nmid.headline.data.CourseRepository;
@@ -28,6 +30,11 @@ public class CourseListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courselist);
         ButterKnife.bind(this);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setTitle(R.string.course_title);
         fragment= (CourseListFragment) getSupportFragmentManager().findFragmentByTag(CourseListFragment.class.getSimpleName());
         if (fragment==null){
             fragment=CourseListFragment.newInstance();
@@ -36,7 +43,14 @@ public class CourseListActivity extends AppCompatActivity {
         }
         mPresenter=new CourseListPresenter(CourseRepository.getInstance(),fragment);
     }
-    public void showDialog(Course course){
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:// 点击返回图标事件
+                this.finish();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

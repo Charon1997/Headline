@@ -4,8 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 
 import com.nmid.headline.R;
 import com.nmid.headline.data.bean.Course;
+import com.nmid.headline.util.ActivityUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,6 +62,7 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
     private final int COL_MAX=8;
     private final int ROW_MAX=7;
 
+    CourseDetailFragment detailFragment;
     private List<Course> weekCourses;
     int courseId=0;
     int currentWeek=0;
@@ -198,7 +202,13 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
 
     @Override
     public void showCourseDetail(Course course) {
-
+        detailFragment=(CourseDetailFragment)getActivity().getSupportFragmentManager().findFragmentByTag(CourseDetailFragment.class.getSimpleName());
+        if (detailFragment==null){
+            detailFragment=CourseDetailFragment.newInstance(course);
+        }
+        FragmentTransaction transaction=getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        detailFragment.show(transaction,CourseDetailFragment.class.getSimpleName());
     }
 
     @Override
@@ -231,14 +241,11 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
         editText.setText(stuNum);
     }
 
-    @Override
-    public void showDetailDialog(Course c) {
-
-    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
+
 }

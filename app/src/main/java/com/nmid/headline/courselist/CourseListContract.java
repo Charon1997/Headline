@@ -25,7 +25,6 @@ public interface CourseListContract {
 
         void setStuNum(String stuNum);
 
-        void showDetailDialog(Course c);
 
     }
     interface Presenter extends BasePresenter {
