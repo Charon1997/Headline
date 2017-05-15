@@ -1,9 +1,13 @@
 package com.nmid.headline.courselist;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,11 +23,13 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nmid.headline.R;
 import com.nmid.headline.data.bean.Course;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,11 +63,14 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
     int courseId=0;
     int currentWeek=0;
     String[] mItems;
-
+    int[] mColors;
+    int colorUsed=0;
+    HashMap<String,Integer> courseColors=new HashMap<>();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mItems=getResources().getStringArray(R.array.weeks);
+        mColors=getResources().getIntArray(R.array.colors);
     }
 
     @Nullable
@@ -109,6 +118,8 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
         checkNotNull(gridLayout);
         gridLayout.removeViews(20, gridLayout.getChildCount() - 20);
         courseId=0;
+        colorUsed=0;
+        courseColors.clear();
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         //确定每一项子view的宽度和高度，如果不进行这一步，内容将显示不正确
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -123,11 +134,30 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
             for (int rowSpec=1;rowSpec<ROW_MAX;rowSpec++){
                 LinearLayout view= (LinearLayout) layoutInflater.inflate(R.layout.item_course_grid,null);
                 TextView item=(TextView)view.findViewById(R.id.courseItem);
+                int color;
+                item.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
                 if (!weekCourses.isEmpty()){
                     if (!isLoaded&&weekCourses.get(courseId).getHashDay()==(columnSpec-1)&&
                             weekCourses.get(courseId).getBeginLesson()==(rowSpec*2-1)){
                         c=weekCourses.get(courseId);
+                        item.setTextColor(Color.WHITE);
                         item.setText(c.getCourse()+"\n"+c.getClassroom());
+                        view.setTag(courseId);
+                        if (courseColors.get(c.getCourse())!=null){
+                            color=courseColors.get(c.getCourse());
+                        }else {
+                            color=mColors[colorUsed];
+                            courseColors.put(c.getCourse(),color);
+                            colorUsed++;
+                        }
+                        view.setBackgroundColor(color);
+                        view.getBackground().setAlpha(200);
+                        view.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mPresenter.openCourseDetail(weekCourses.get((int)v.getTag()));
+                            }
+                        });
                         courseId++;
                         if (courseId<weekCourses.size()){
                             isLoaded=false;
@@ -199,6 +229,11 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
     @Override
     public void setStuNum(String stuNum) {
         editText.setText(stuNum);
+    }
+
+    @Override
+    public void showDetailDialog(Course c) {
+
     }
 
     @Override

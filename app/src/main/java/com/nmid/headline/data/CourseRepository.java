@@ -102,7 +102,7 @@ public class CourseRepository implements CourseDataSource{
     public List<Course> getTodayCourse() {
         List<Course> result=(ArrayList<Course>)mACache.getAsObject(KEY_COURSE);
         List<Course> dayCourse=new ArrayList<>();
-        int dayOfWeek=LocalDate.now().getDayOfWeek().getValue()-3;
+        int dayOfWeek=LocalDate.now().getDayOfWeek().getValue()-1;
         for (Course c: result
              ) {
             if (c.getWeek().contains(getNowWeek())&&c.getHashDay()==dayOfWeek){

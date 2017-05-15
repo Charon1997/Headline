@@ -24,4 +24,21 @@
         <item>第21周</item>
         <item>第22周</item>
     </string-array>
+    <integer-array name="colors">
+        <item>@color/Blue</item>
+        <item>@color/Red</item>
+        <item>@color/Lime</item>
+        <item>@color/Cyan</item>
+        <item>@color/Pink</item>
+        <item>@color/Yellow</item>
+        <item>@color/Purple</item>
+        <item>@color/Teal</item>
+        <item>@color/Amber</item>
+        <item>@color/DeepPurple</item>
+        <item>@color/Green</item>
+        <item>@color/Orange</item>
+        <item>@color/Indigo</item>
+        <item>@color/BlueGrey</item>
+
+    </integer-array>
 </resources>

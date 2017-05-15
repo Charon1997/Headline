@@ -25,6 +25,8 @@ public interface CourseListContract {
 
         void setStuNum(String stuNum);
 
+        void showDetailDialog(Course c);
+
     }
     interface Presenter extends BasePresenter {
 
@@ -38,7 +40,7 @@ public interface CourseListContract {
 
         void loadHttpCourseList();
 
-        void openCourseDetail();
+        void openCourseDetail(Course course);
 
         void loadOldCourseList();
 

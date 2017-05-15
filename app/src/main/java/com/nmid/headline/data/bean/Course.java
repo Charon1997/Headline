@@ -29,6 +29,9 @@ public class Course implements Serializable{
     @SerializedName("course")
     @Expose
     private String course;
+    @SerializedName("course_num")
+    @Expose
+    private String courseNum;
     @SerializedName("teacher")
     @Expose
     private String teacher;
@@ -47,18 +50,15 @@ public class Course implements Serializable{
     @SerializedName("weekEnd")
     @Expose
     private Integer weekEnd;
+    @SerializedName("week")
+    @Expose
+    private List<Integer> week = null;
     @SerializedName("type")
     @Expose
     private String type;
     @SerializedName("period")
     @Expose
     private Integer period;
-    @SerializedName("_id")
-    @Expose
-    private String id;
-    @SerializedName("week")
-    @Expose
-    private List<Integer> week = null;
 
     public Integer getHashDay() {
         return hashDay;
@@ -106,6 +106,14 @@ public class Course implements Serializable{
 
     public void setCourse(String course) {
         this.course = course;
+    }
+
+    public String getCourseNum() {
+        return courseNum;
+    }
+
+    public void setCourseNum(String courseNum) {
+        this.courseNum = courseNum;
     }
 
     public String getTeacher() {
@@ -156,6 +164,14 @@ public class Course implements Serializable{
         this.weekEnd = weekEnd;
     }
 
+    public List<Integer> getWeek() {
+        return week;
+    }
+
+    public void setWeek(List<Integer> week) {
+        this.week = week;
+    }
+
     public String getType() {
         return type;
     }
@@ -171,21 +187,4 @@ public class Course implements Serializable{
     public void setPeriod(Integer period) {
         this.period = period;
     }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public List<Integer> getWeek() {
-        return week;
-    }
-
-    public void setWeek(List<Integer> week) {
-        this.week = week;
-    }
-
 }

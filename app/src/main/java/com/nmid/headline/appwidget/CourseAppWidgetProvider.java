@@ -82,4 +82,10 @@ public class CourseAppWidgetProvider extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(componentName, remoteViews);
         }
     }
+    private void clearView(RemoteViews remoteViews){
+        for (int i=0;i<7;i++){
+            remoteViews.setTextViewText(courseViews[i],"");
+            remoteViews.setTextViewText(locationViews[i],"");
+        }
+    }
 }

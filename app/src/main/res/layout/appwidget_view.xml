@@ -15,8 +15,10 @@
         android:layout_columnWeight="1"
         android:layout_row="0"
         android:layout_rowWeight="1"
-        android:padding="2dp"
-        app:srcCompat="@drawable/ic_loop_black_18dp" />
+        android:padding="6dp"
+        android:src="@drawable/ic_loop_black_18dp"
+        android:backgroundTintMode="add"
+        android:tint="@color/iconTintBlue"/>
     <TextView
         android:layout_width="45dp"
         android:layout_height="40dp"

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.nmid.headline.R;
 import com.nmid.headline.data.CourseRepository;
+import com.nmid.headline.data.bean.Course;
 import com.nmid.headline.util.ActivityUtils;
 
 import butterknife.BindView;
@@ -34,5 +35,8 @@ public class CourseListActivity extends AppCompatActivity {
                     fragment,R.id.courseList_container,CourseListFragment.class.getSimpleName());
         }
         mPresenter=new CourseListPresenter(CourseRepository.getInstance(),fragment);
+    }
+    public void showDialog(Course course){
+
     }
 }

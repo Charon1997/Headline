@@ -130,8 +130,10 @@ public class CourseListPresenter implements CourseListContract.Presenter{
     }
 
     @Override
-    public void openCourseDetail() {
-
+    public void openCourseDetail(Course course) {
+        if (mCourseView.isActive()){
+            mCourseView.showCourseDetail(course);
+        }
     }
 
     @Override
