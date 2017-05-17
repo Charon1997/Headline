@@ -3,9 +3,7 @@ package com.nmid.headline.data;
 import android.support.annotation.NonNull;
 
 import com.nmid.headline.data.bean.New;
-import com.nmid.headline.data.source.remote.HeadlineHttpService;
 import com.nmid.headline.data.source.remote.HttpMethods;
-import com.nmid.headline.favoritelist.FavoriteListContract;
 import com.nmid.headline.util.ACache;
 import com.nmid.headline.util.AppContext;
 
@@ -36,7 +34,7 @@ public class NewsRepository implements NewsDataSource{
             if (lastId==NewsDataSource.FIRST_REQUEST){
                 getFavoriteNews(callback);
             }else {
-                callback.onDataNotAvailable();
+                callback.onNewsLoaded(new ArrayList<>());
             }
         }else {
             HttpMethods.getInstance().getNews(callback,lastId, NewsDataSource.DEFAULT_LIMIT,type);
@@ -51,7 +49,7 @@ public class NewsRepository implements NewsDataSource{
     @Override
     public void getFavoriteNews(@NonNull LoadNewsCallback callback) {
         ArrayList<New> savedNews=(ArrayList<New>) mAcache.getAsObject(NewsDataSource.TYPE_FAVORITE);
-        if (savedNews!=null&&!savedNews.isEmpty()){
+        if (savedNews!=null){
             callback.onNewsLoaded(savedNews);
         }else {
             callback.onDataNotAvailable();

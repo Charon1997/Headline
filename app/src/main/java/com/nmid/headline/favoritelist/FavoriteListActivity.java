@@ -18,6 +18,10 @@ import com.nmid.headline.util.ActivityUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 复用了NewsPageFragment相关的代码
+ */
+
 public class FavoriteListActivity extends AppCompatActivity {
 
     @BindView(R.id.favorite_container)

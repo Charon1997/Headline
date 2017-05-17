@@ -48,7 +48,9 @@ public class NewsPagePresenter implements NewsPageContract.Presenter {
             @Override
             public void onNewsLoaded(List<New> news) {
                 checkNotNull(news);
-                recordId=news.get(news.size()-1).getNewsPid();
+                if (!news.isEmpty()){
+                    recordId=news.get(news.size()-1).getNewsPid();
+                }
                 if (mNewsView.isActive()){
                     if (lastId>0){
                         mNewsView.showMoreNews(news);
@@ -56,6 +58,7 @@ public class NewsPagePresenter implements NewsPageContract.Presenter {
                         mNewsView.showNews(news);
                     }
                 }
+
             }
 
             @Override
