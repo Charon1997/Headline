@@ -7,5 +7,7 @@
     <string name="detail_news">新闻详情</string>
     <string name="detail_teacher">教师详情</string>
     <string name="course_title">学生课表</string>
+    <string name="about">关于</string>
+    <string name="favorite">我的收藏</string>
 
 </resources>

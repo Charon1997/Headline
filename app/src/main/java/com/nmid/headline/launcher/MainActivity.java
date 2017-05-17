@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.bottom_nav_news:
-                        actionBar.show();
                         actionBar.setTitle(R.string.bottom_nav_tab1);
                         collegeNewsFragment=(NewsPageFragment)fragmentManager.findFragmentByTag(NewsRepository.TYPE_JINGWEI) ;
                         getSupportFragmentManager().beginTransaction().hide(currentFragment).show(collegeNewsFragment).commit();
@@ -82,12 +81,11 @@ public class MainActivity extends AppCompatActivity {
                         }
                         currentFragment=newsletterFragment;
                         newsletterPresenter =new NewsPagePresenter(NewsRepository.getInstance(),newsletterFragment,NewsRepository.TYPE_NEWS);
-                        actionBar.show();
                         actionBar.setTitle(R.string.bottom_nav_tab2);
                         break;
                     case R.id.bottom_nav_teachers:
                         Toast.makeText(getApplicationContext(),"teacher",Toast.LENGTH_SHORT).show();
-                        actionBar.hide();
+                        actionBar.setTitle(R.string.bottom_nav_tab3);
                         actionBar.setShowHideAnimationEnabled(false);
                         break;
                     case R.id.bottom_nav_explore:
@@ -101,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         currentFragment=userActionFragment;
                         userActionPresenter =new UserActionPresenter(userActionFragment);
-                        actionBar.show();
                         actionBar.setTitle(R.string.bottom_nav_tab4);
                         break;
                 }

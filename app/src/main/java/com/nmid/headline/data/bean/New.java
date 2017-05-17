@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by xwysu on 2017/4/8.
  */
 
-public class New implements Parcelable {
+public class New implements Serializable{
     @SerializedName("news_pid")
     @Expose
     private Integer newsPid;
@@ -31,7 +32,7 @@ public class New implements Parcelable {
     private String type;
     @SerializedName("image")
     @Expose
-    private List<Image> image = new ArrayList<Image>();
+    private ArrayList<Image> image = new ArrayList<Image>();
 
     /**
      *
@@ -128,7 +129,7 @@ public class New implements Parcelable {
      * @return
      * The image
      */
-    public List<Image> getImage() {
+    public ArrayList<Image> getImage() {
         return image;
     }
 
@@ -137,50 +138,9 @@ public class New implements Parcelable {
      * @param image
      * The image
      */
-    public void setImage(List<Image> image) {
+    public void setImage(ArrayList<Image> image) {
         this.image = image;
     }
 
 
-    public New(int idmember, String category) {
-        this.newsPid = idmember;
-        this.type = category;
-    }
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(this.newsPid);
-        dest.writeString(this.title);
-        dest.writeString(this.time);
-        dest.writeString(this.author);
-        dest.writeString(this.type);
-        dest.writeTypedList(this.image);
-    }
-
-    protected New(Parcel in) {
-        this.newsPid = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.title = in.readString();
-        this.time = in.readString();
-        this.author = in.readString();
-        this.type = in.readString();
-        this.image = in.createTypedArrayList(Image.CREATOR);
-    }
-
-    public static final Creator<New> CREATOR = new Creator<New>() {
-        @Override
-        public New createFromParcel(Parcel source) {
-            return new New(source);
-        }
-
-        @Override
-        public New[] newArray(int size) {
-            return new New[size];
-        }
-    };
 }

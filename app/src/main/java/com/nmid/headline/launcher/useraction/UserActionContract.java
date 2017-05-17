@@ -13,24 +13,21 @@ public interface UserActionContract {
 
         boolean isActive();
 
-        void showUserInfo();
+        void showAboutPage();
 
-        void showLoginPage();
+        void showFavoritePage();
 
         void showCourseList();
 
-        void showCirclePage();
 
     }
     interface Presenter extends BasePresenter {
 
-        void openLoginPage();
-
         void openCourseList();
 
-        void openCirclePage();
+        void openFavoritePage();
 
-        void loadLocalUser();
+        void openAboutPage();
 
     }
 }

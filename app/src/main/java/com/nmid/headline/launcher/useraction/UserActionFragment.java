@@ -13,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nmid.headline.R;
+import com.nmid.headline.about.AboutActivity;
 import com.nmid.headline.courselist.CourseListActivity;
+import com.nmid.headline.favoritelist.FavoriteListActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,12 +30,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class UserActionFragment extends Fragment implements UserActionContract.View {
 
     UserActionContract.Presenter mPresenter;
-    @BindView(R.id.usertitle)
-    TextView usertitle;
-    @BindView(R.id.userName)
-    TextView userName;
-    @BindView(R.id.userIcon)
-    ImageView userIcon;
     @BindView(R.id.userInfo)
     CardView userInfo;
     @BindView(R.id.classText)
@@ -42,15 +38,22 @@ public class UserActionFragment extends Fragment implements UserActionContract.V
     ImageView classImage;
     @BindView(R.id.myclass)
     ConstraintLayout myclass;
-    @BindView(R.id.cicleText)
-    TextView cicleText;
-    @BindView(R.id.circleImage)
-    ImageView circleImage;
-    @BindView(R.id.collegeCircle)
-    ConstraintLayout collegeCircle;
+    @BindView(R.id.favoriteText)
+    TextView favoriteText;
+    @BindView(R.id.favoriteImage)
+    ImageView favoriteImage;
+    @BindView(R.id.favorite)
+    ConstraintLayout favorite;
+    @BindView(R.id.aboutText)
+    TextView aboutText;
+    @BindView(R.id.aboutImage)
+    ImageView aboutImage;
+    @BindView(R.id.about)
+    ConstraintLayout about;
     @BindView(R.id.cardView2)
     CardView cardView2;
     Unbinder unbinder;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,12 +71,19 @@ public class UserActionFragment extends Fragment implements UserActionContract.V
                 mPresenter.openCourseList();
             }
         });
-        collegeCircle.setOnClickListener(new View.OnClickListener() {
+        favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.openCirclePage();
+                mPresenter.openFavoritePage();
             }
         });
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.openAboutPage();
+            }
+        });
+
         return root;
     }
 
@@ -101,25 +111,24 @@ public class UserActionFragment extends Fragment implements UserActionContract.V
     }
 
     @Override
-    public void showUserInfo() {
-
-    }
-
-    @Override
-    public void showLoginPage() {
-
-    }
-
-    @Override
-    public void showCourseList() {
-        Intent intent=new Intent(getContext(), CourseListActivity.class);
+    public void showAboutPage() {
+        Intent intent = new Intent(getContext(), AboutActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void showCirclePage() {
-
+    public void showFavoritePage() {
+        Intent intent = new Intent(getContext(), FavoriteListActivity.class);
+        startActivity(intent);
     }
+
+
+    @Override
+    public void showCourseList() {
+        Intent intent = new Intent(getContext(), CourseListActivity.class);
+        startActivity(intent);
+    }
+
 
     @Override
     public void onDestroyView() {

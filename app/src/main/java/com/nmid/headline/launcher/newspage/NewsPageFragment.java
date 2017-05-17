@@ -136,7 +136,9 @@ public class NewsPageFragment extends Fragment implements NewsPageContract.View 
 
     @Override
     public void showError() {
-
+        if (refreshLayout.isRefreshing()) {
+            refreshLayout.setRefreshing(false);
+        }
     }
 
     @Override

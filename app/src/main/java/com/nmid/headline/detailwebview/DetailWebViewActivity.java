@@ -49,7 +49,7 @@ public class DetailWebViewActivity extends AppCompatActivity {
         switch (type){
             case TYPE_TEXT:
                 actionBar.setTitle(R.string.detail_news);
-                New aNew=getIntent().getParcelableExtra(BUNDLE_NEW);
+                New aNew= (New) getIntent().getSerializableExtra(BUNDLE_NEW);
                 checkNotNull(aNew);
                 DetailWebViewFragment fragment=(DetailWebViewFragment)getSupportFragmentManager().
                         findFragmentByTag(DetailWebViewFragment.class.getSimpleName());

@@ -3,11 +3,16 @@ package com.nmid.headline.detailwebview;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 
 import com.nmid.headline.data.NewsDataSource;
 import com.nmid.headline.data.NewsRepository;
 import com.nmid.headline.data.bean.New;
+import com.nmid.headline.util.ACache;
 import com.nmid.headline.util.ActivityUtils;
+import com.nmid.headline.util.AppContext;
+
+import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -21,6 +26,8 @@ public class DetailWebViewPresenter implements DetailWebViewContract.Presenter{
     New aNew;
     String url;
     int type;
+    boolean floatBarStatus=false;
+    ACache mAcache=ACache.get(AppContext.getContext());
     public DetailWebViewPresenter(@NonNull New aNew, @NonNull NewsRepository repository,@NonNull DetailWebViewContract.View detailWebView){
         checkNotNull(aNew);
         checkNotNull(repository);
@@ -46,6 +53,11 @@ public class DetailWebViewPresenter implements DetailWebViewContract.Presenter{
     public void start() {
         if (type==DetailWebViewActivity.TYPE_TEXT){
             loadHtml(aNew.getType(),aNew.getNewsPid());
+            if (view.isActive()){
+                view.setFloatBarVisible(View.VISIBLE);
+                floatBarStatus=newsRepository.isSavedFavorite(aNew);
+                view.showFloatBarStatus(floatBarStatus);
+            }
         }else {
             if (view.isActive()){
                 view.showBaseUrl(url);
@@ -77,5 +89,18 @@ public class DetailWebViewPresenter implements DetailWebViewContract.Presenter{
     @Override
     public void loadUrl() {
         view.showBaseUrl(url);
+    }
+
+    @Override
+    public void operateFavoriteNew() {
+        if (floatBarStatus){
+            newsRepository.deleteFavorite(aNew);
+        }else {
+            newsRepository.saveFavorite(aNew);
+        }
+        floatBarStatus=!floatBarStatus;
+        if (view.isActive()){
+            view.showFloatBarStatus(floatBarStatus);
+        }
     }
 }

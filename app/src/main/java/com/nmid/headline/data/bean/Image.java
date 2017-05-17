@@ -7,8 +7,10 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 
-public class Image implements Parcelable {
+
+public class Image implements Serializable {
 
     @SerializedName("url")
     @Expose
@@ -32,30 +34,5 @@ public class Image implements Parcelable {
         this.url = url;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.url);
-    }
-
-    public Image() {
-    }
-
-    private Image(Parcel in) {
-        this.url = in.readString();
-    }
-
-    public static final Parcelable.Creator<Image> CREATOR = new Parcelable.Creator<Image>() {
-        public Image createFromParcel(Parcel source) {
-            return new Image(source);
-        }
-
-        public Image[] newArray(int size) {
-            return new Image[size];
-        }
-    };
 }

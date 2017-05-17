@@ -25,10 +25,6 @@ public class UserActionPresenter implements UserActionContract.Presenter{
 
     }
 
-    @Override
-    public void openLoginPage() {
-
-    }
 
     @Override
     public void openCourseList() {
@@ -38,12 +34,18 @@ public class UserActionPresenter implements UserActionContract.Presenter{
     }
 
     @Override
-    public void openCirclePage() {
-
+    public void openFavoritePage() {
+        if (mUserActionView.isActive()){
+            mUserActionView.showFavoritePage();
+        }
     }
 
     @Override
-    public void loadLocalUser() {
-
+    public void openAboutPage() {
+        if (mUserActionView.isActive()){
+            mUserActionView.showAboutPage();
+        }
     }
+
+
 }

@@ -18,6 +18,8 @@ public interface NewsDataSource {
 
     String TYPE_NEWS="b";
 
+    String TYPE_FAVORITE="favorite";
+
     int FIRST_REQUEST=-1;
 
     int DEFAULT_LIMIT=15;
@@ -29,12 +31,6 @@ public interface NewsDataSource {
         void onDataNotAvailable();
     }
 
-    interface GetNewCallback {
-
-        void onNewLoaded(New aNew);
-
-        void onDataNotAvailable();
-    }
     interface LoadDetailCallback{
 
         void onDetailLoad(String html);
@@ -46,7 +42,13 @@ public interface NewsDataSource {
 
     void getNewDetail(@NonNull LoadDetailCallback callback,@NonNull String type,int id);
 
-    void getNew(@NonNull GetNewCallback callback,int id,@NonNull String type);
+    void getFavoriteNews(@NonNull LoadNewsCallback callback);
+
+    boolean isSavedFavorite(New aNew);
+
+    void saveFavorite(New aNew);
+
+    void deleteFavorite(New aNew);
 
     void refreshNews(@NonNull String type);
 

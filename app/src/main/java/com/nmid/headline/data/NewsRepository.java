@@ -5,12 +5,20 @@ import android.support.annotation.NonNull;
 import com.nmid.headline.data.bean.New;
 import com.nmid.headline.data.source.remote.HeadlineHttpService;
 import com.nmid.headline.data.source.remote.HttpMethods;
+import com.nmid.headline.favoritelist.FavoriteListContract;
+import com.nmid.headline.util.ACache;
+import com.nmid.headline.util.AppContext;
+
+import java.util.ArrayList;
 
 /**
  * Created by xwysu on 2017/4/8.
  */
 
 public class NewsRepository implements NewsDataSource{
+
+
+    ACache mAcache=ACache.get(AppContext.getContext());
 
     private NewsRepository(){
 
@@ -24,7 +32,15 @@ public class NewsRepository implements NewsDataSource{
 
     @Override
     public void getNews(@NonNull LoadNewsCallback callback, @NonNull String type, int lastId) {
-        HttpMethods.getInstance().getNews(callback,lastId, NewsDataSource.DEFAULT_LIMIT,type);
+        if (type.equals(NewsDataSource.TYPE_FAVORITE)){
+            if (lastId==NewsDataSource.FIRST_REQUEST){
+                getFavoriteNews(callback);
+            }else {
+                callback.onDataNotAvailable();
+            }
+        }else {
+            HttpMethods.getInstance().getNews(callback,lastId, NewsDataSource.DEFAULT_LIMIT,type);
+        }
     }
 
     @Override
@@ -33,8 +49,56 @@ public class NewsRepository implements NewsDataSource{
     }
 
     @Override
-    public void getNew(@NonNull GetNewCallback callback, int id, @NonNull String type) {
+    public void getFavoriteNews(@NonNull LoadNewsCallback callback) {
+        ArrayList<New> savedNews=(ArrayList<New>) mAcache.getAsObject(NewsDataSource.TYPE_FAVORITE);
+        if (savedNews!=null&&!savedNews.isEmpty()){
+            callback.onNewsLoaded(savedNews);
+        }else {
+            callback.onDataNotAvailable();
+        }
+    }
 
+
+    @Override
+    public boolean isSavedFavorite(New aNew) {
+        ArrayList<New> savedNews=(ArrayList<New>) mAcache.getAsObject(NewsDataSource.TYPE_FAVORITE);
+        if (savedNews!=null&&!savedNews.isEmpty()){
+            for (New n:savedNews
+                 ) {
+                if (n.getTitle().equals(aNew.getTitle())){
+                    return true;
+                }
+            }
+            return false;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public void saveFavorite(New aNew) {
+        ArrayList<New> savedNews=(ArrayList<New>) mAcache.getAsObject(NewsDataSource.TYPE_FAVORITE);
+        if (savedNews!=null&&!savedNews.isEmpty()){
+            savedNews.add(0,aNew);
+        }else{
+            savedNews=new ArrayList<New>();
+            savedNews.add(aNew);
+        }
+        mAcache.put(NewsDataSource.TYPE_FAVORITE,savedNews);
+    }
+
+    @Override
+    public void deleteFavorite(New aNew) {
+        ArrayList<New> savedNews=(ArrayList<New>) mAcache.getAsObject(NewsDataSource.TYPE_FAVORITE);
+        if (savedNews!=null&&!savedNews.isEmpty()){
+            for (int i=0;i<savedNews.size();i++){
+                if (savedNews.get(i).getTitle().equals(aNew.getTitle())){
+                    savedNews.remove(i);
+                    break;
+                }
+            }
+        }
+        mAcache.put(NewsDataSource.TYPE_FAVORITE,savedNews);
     }
 
     @Override

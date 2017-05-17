@@ -12,11 +12,11 @@
     <color name="colorEditStroke">#e0e0e0</color>
     <color name="divider">#B6B6B6</color>
     <color name="Red">#E57373</color>
-    <color name="Pink">#F06292</color>
+    <color name="Pink">#f06292</color>
     <color name="Purple">#BA68C8</color>
     <color name="DeepPurple">#9575CD</color>
     <color name="Indigo">#7986CB</color>
-    <color name="Blue">#64B5F6</color>
+    <color name="Blue">#64b5f6</color>
     <color name="Cyan">#4DD0E1</color>v
     <color name="Teal">#4DB6AC</color>
     <color name="Green">#81C784</color>
@@ -24,6 +24,6 @@
     <color name="Yellow">#FFF176</color>
     <color name="Amber">#FFD54F</color>
     <color name="Orange">#FFB74D</color>
-    <color name="DeepOrange">#FF8A65</color>
+    <color name="DeepOrange">#ff8a65</color>
     <color name="BlueGrey">#90A4AE</color>
 </resources>

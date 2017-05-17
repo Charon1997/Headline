@@ -1,4 +1,4 @@
-package com.nmid.headline.introducepage;
+package com.nmid.headline.favoritelist;
 
 import com.nmid.headline.BasePresenter;
 import com.nmid.headline.BaseView;
@@ -7,7 +7,7 @@ import com.nmid.headline.BaseView;
  * Created by xwysu on 2016/12/4.
  */
 
-public interface IntroducePageContract {
+public interface FavoriteListContract {
     interface View extends BaseView<Presenter> {
 
     }
