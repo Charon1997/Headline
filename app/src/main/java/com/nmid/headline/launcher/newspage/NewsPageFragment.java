@@ -158,7 +158,7 @@ public class NewsPageFragment extends Fragment implements NewsPageContract.View 
     public void showNewDetail(New item) {
         Intent intent = new Intent(getContext(), DetailWebViewActivity.class);
         intent.putExtra(DetailWebViewActivity.BUNDLE_NEW, item);
-        intent.putExtra(DetailWebViewActivity.BUNDLE_TYPE, DetailWebViewActivity.TYPE_TEXT);
+        intent.putExtra(DetailWebViewActivity.BUNDLE_TYPE, DetailWebViewActivity.TYPE_NEW);
         startActivity(intent);
     }
 

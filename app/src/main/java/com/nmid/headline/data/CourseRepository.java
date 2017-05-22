@@ -1,25 +1,15 @@
 package com.nmid.headline.data;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.nmid.headline.data.bean.Course;
 import com.nmid.headline.data.source.remote.CourseHttp;
-import com.nmid.headline.util.ACache;
+import com.nmid.headline.data.source.local.ACache;
 import com.nmid.headline.util.AppContext;
 
 
-import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.Period;
 import org.threeten.bp.temporal.ChronoUnit;
-import org.threeten.bp.temporal.TemporalAdjuster;
-import org.threeten.bp.temporal.TemporalAdjusters;
-import org.threeten.bp.temporal.TemporalUnit;
 
 import java.util.ArrayList;
 import java.util.List;

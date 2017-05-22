@@ -10,7 +10,9 @@ import android.widget.Toast;
 
 import com.nmid.headline.R;
 import com.nmid.headline.data.NewsRepository;
+import com.nmid.headline.data.TeachersRepository;
 import com.nmid.headline.data.bean.New;
+import com.nmid.headline.data.bean.Teacher;
 import com.nmid.headline.util.ActivityUtils;
 
 import butterknife.BindView;
@@ -28,10 +30,10 @@ public class DetailWebViewActivity extends AppCompatActivity {
 
     //bundle传参
     public static final String BUNDLE_NEW = "news";
-    public static final String BUNDLE_URL = "url";
+    public static final String BUNDLE_TEACHER= "teacher";
     public static final String BUNDLE_TYPE = "type";
-    public static final int TYPE_TEXT = 0;
-    public static final int TYPE_URL = 1;
+    public static final int TYPE_NEW = 0;
+    public static final int TYPE_TEACHER = 1;
     @BindView(R.id.web_container)
     ConstraintLayout webContainer;
     DetailWebViewPresenter mPresenter;
@@ -47,23 +49,31 @@ public class DetailWebViewActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(false);
         int type=getIntent().getIntExtra(BUNDLE_TYPE,-1);
         switch (type){
-            case TYPE_TEXT:
+            case TYPE_NEW:
                 actionBar.setTitle(R.string.detail_news);
                 New aNew= (New) getIntent().getSerializableExtra(BUNDLE_NEW);
                 checkNotNull(aNew);
-                DetailWebViewFragment fragment=(DetailWebViewFragment)getSupportFragmentManager().
-                        findFragmentByTag(DetailWebViewFragment.class.getSimpleName());
-                if (fragment==null){
-                    fragment=DetailWebViewFragment.newInstance();
+                DetailWebViewFragment newsFragment=(DetailWebViewFragment)getSupportFragmentManager().
+                        findFragmentByTag(BUNDLE_NEW);
+                if (newsFragment==null){
+                    newsFragment=DetailWebViewFragment.newInstance();
                     ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                            fragment,R.id.web_container,DetailWebViewFragment.class.getSimpleName());
+                            newsFragment,R.id.web_container,BUNDLE_NEW);
                 }
-                mPresenter=new DetailWebViewPresenter(aNew, NewsRepository.getInstance(),fragment);
+                mPresenter=new DetailWebViewPresenter(aNew, NewsRepository.getInstance(),newsFragment);
                 break;
-            case TYPE_URL:
+            case TYPE_TEACHER:
                 actionBar.setTitle(R.string.detail_teacher);
-                String url=getIntent().getStringExtra(BUNDLE_URL);
-                checkNotNull(url);
+                Teacher teacher=(Teacher)getIntent().getSerializableExtra(BUNDLE_TEACHER);
+                checkNotNull(teacher);
+                DetailWebViewFragment teacherFragment=(DetailWebViewFragment)getSupportFragmentManager().
+                        findFragmentByTag(BUNDLE_TEACHER);
+                if (teacherFragment==null){
+                    teacherFragment=DetailWebViewFragment.newInstance();
+                    ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                            teacherFragment,R.id.web_container,BUNDLE_TEACHER);
+                }
+                mPresenter=new DetailWebViewPresenter(teacher,TeachersRepository.getInstance(),teacherFragment);
                 break;
             case -1:
                 Toast.makeText(this,"内部错误",Toast.LENGTH_SHORT).show();

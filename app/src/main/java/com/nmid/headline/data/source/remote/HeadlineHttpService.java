@@ -2,6 +2,7 @@ package com.nmid.headline.data.source.remote;
 
 import com.nmid.headline.data.bean.HttpResults;
 import com.nmid.headline.data.bean.New;
+import com.nmid.headline.data.bean.Teacher;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -22,7 +23,7 @@ public interface HeadlineHttpService {
     @GET("/Headline/api/news/fresh")
     Call<HttpResults<New>> getNews(
                     @Query(ID) int id, @Query(LIMIT) int limit, @Query(TYPE) String type);
-    @GET("/Headline/api/news/content")
-    Call<String> getNewDetail(
-            @Query(ID) int id, @Query(TYPE) String type);
+    @GET("/Headline/api/teacherInfo/getInfo")
+    Call<HttpResults<Teacher>> getTeachers(
+            @Query(ID) int id, @Query(LIMIT) int limit);
 }

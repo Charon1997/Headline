@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.nmid.headline.R;
 import com.nmid.headline.data.CourseRepository;
 import com.nmid.headline.data.NewsRepository;
+import com.nmid.headline.data.TeachersRepository;
 import com.nmid.headline.launcher.newspage.NewsPageFragment;
 import com.nmid.headline.launcher.newspage.NewsPagePresenter;
 import com.nmid.headline.launcher.teacherlist.TeacherListFragment;
@@ -84,9 +85,17 @@ public class MainActivity extends AppCompatActivity {
                         actionBar.setTitle(R.string.bottom_nav_tab2);
                         break;
                     case R.id.bottom_nav_teachers:
-                        Toast.makeText(getApplicationContext(),"teacher",Toast.LENGTH_SHORT).show();
+                        teacherListFragment=(TeacherListFragment) fragmentManager.findFragmentByTag(TeacherListFragment.class.getSimpleName()) ;
+                        if (teacherListFragment==null){
+                            teacherListFragment=TeacherListFragment.newInstance();
+                            getSupportFragmentManager().beginTransaction().hide(currentFragment).commit();
+                            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),teacherListFragment,R.id.contain,TeacherListFragment.class.getSimpleName());
+                        }else {
+                            getSupportFragmentManager().beginTransaction().hide(currentFragment).show(teacherListFragment).commit();
+                        }
+                        currentFragment=teacherListFragment;
+                        teacherListPresenter =new TeacherListPresenter(teacherListFragment, TeachersRepository.getInstance());
                         actionBar.setTitle(R.string.bottom_nav_tab3);
-                        actionBar.setShowHideAnimationEnabled(false);
                         break;
                     case R.id.bottom_nav_explore:
                         userActionFragment=(UserActionFragment) fragmentManager.findFragmentByTag(UserActionFragment.class.getSimpleName()) ;

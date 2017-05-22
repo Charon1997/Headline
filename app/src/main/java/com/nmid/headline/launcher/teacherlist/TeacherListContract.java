@@ -20,24 +20,22 @@ public interface TeacherListContract {
 
         void showEmptyError();
 
-        void showFilterResult();
-
-        void showFilterAll();
-
-        void showFilterError();
-
         void showLoadingIndicator(boolean active);
 
-        void showDetailsUi(int teacherId);
+        void showDetailsUi( Teacher teacher);
+
+        void showMoreTeachers(List<Teacher> addNews);
+
+        void showError();
 
     }
     interface Presenter extends BasePresenter {
 
-        void loadTasks(boolean forceUpdate);
+        void loadTeachers();
+
+        void loadMoreTeachers();
 
         void openTeacherDetails(Teacher teacher);
-
-        void filterName(String input);
 
     }
 }

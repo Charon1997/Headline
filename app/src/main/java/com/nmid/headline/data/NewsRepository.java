@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.nmid.headline.data.bean.New;
 import com.nmid.headline.data.source.remote.HttpMethods;
-import com.nmid.headline.util.ACache;
+import com.nmid.headline.data.source.local.ACache;
 import com.nmid.headline.util.AppContext;
 
 import java.util.ArrayList;

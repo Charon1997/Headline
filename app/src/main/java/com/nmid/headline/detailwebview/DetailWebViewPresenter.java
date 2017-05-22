@@ -1,5 +1,6 @@
 package com.nmid.headline.detailwebview;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -7,64 +8,71 @@ import android.view.View;
 
 import com.nmid.headline.data.NewsDataSource;
 import com.nmid.headline.data.NewsRepository;
+import com.nmid.headline.data.TeachersDataSource;
+import com.nmid.headline.data.TeachersRepository;
 import com.nmid.headline.data.bean.New;
-import com.nmid.headline.util.ACache;
-import com.nmid.headline.util.ActivityUtils;
+import com.nmid.headline.data.bean.Teacher;
+import com.nmid.headline.data.source.local.ACache;
 import com.nmid.headline.util.AppContext;
-
-import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by xwysu on 2016/12/4.
+ * 包含了新闻详情和教师详情
  */
 
 public class DetailWebViewPresenter implements DetailWebViewContract.Presenter{
     NewsRepository newsRepository;
+    TeachersRepository teachersRepository;
     DetailWebViewContract.View view;
     New aNew;
+    Teacher teacher;
     String url;
     int type;
     boolean floatBarStatus=false;
-    ACache mAcache=ACache.get(AppContext.getContext());
-    public DetailWebViewPresenter(@NonNull New aNew, @NonNull NewsRepository repository,@NonNull DetailWebViewContract.View detailWebView){
+    public DetailWebViewPresenter(@NonNull New aNew, @NonNull NewsRepository newsRepository,@NonNull DetailWebViewContract.View detailWebView){
         checkNotNull(aNew);
-        checkNotNull(repository);
+        checkNotNull(newsRepository);
         checkNotNull(detailWebView);
         this.aNew=aNew;
-        newsRepository=repository;
+        this.newsRepository=newsRepository;
         view=detailWebView;
-        type=DetailWebViewActivity.TYPE_TEXT;
+        type=DetailWebViewActivity.TYPE_NEW;
         view.setPresenter(this);
     }
-    public DetailWebViewPresenter(@Nullable String url, @NonNull NewsRepository repository, @NonNull DetailWebViewContract.View detailWebView){
-        checkNotNull(url);
-        checkNotNull(repository);
+    public DetailWebViewPresenter(@NonNull Teacher teacher, @NonNull TeachersRepository teachersRepository, DetailWebViewContract.View detailWebView){
+        checkNotNull(teacher);
         checkNotNull(detailWebView);
-        this.url=url;
-        newsRepository=repository;
+        checkNotNull(teachersRepository);
+        this.teacher=teacher;
+        this.teachersRepository=teachersRepository;
         view=detailWebView;
-        type=DetailWebViewActivity.TYPE_URL;
+        type=DetailWebViewActivity.TYPE_TEACHER;
         view.setPresenter(this);
     }
 
     @Override
     public void start() {
-        if (type==DetailWebViewActivity.TYPE_TEXT){
-            loadHtml(aNew.getType(),aNew.getNewsPid());
-            if (view.isActive()){
-                view.setFloatBarVisible(View.VISIBLE);
-                floatBarStatus=newsRepository.isSavedFavorite(aNew);
-                view.showFloatBarStatus(floatBarStatus);
-            }
-        }else {
-            if (view.isActive()){
-                view.showBaseUrl(url);
-            }
+        switch (type){
+            case DetailWebViewActivity.TYPE_NEW:
+                loadNewsHtml(aNew.getType(),aNew.getNewsPid());
+                if (view.isActive()){
+                    view.setFloatBarVisible(View.VISIBLE);
+                    floatBarStatus=newsRepository.isSavedFavorite(aNew);
+                    view.showFloatBarStatus(floatBarStatus);
+                }
+                break;
+            case DetailWebViewActivity.TYPE_TEACHER:
+                loadTeacherHtml(teacher.getTeacherInfoPid());
+                if (view.isActive()){
+                    view.setFloatBarVisible(View.VISIBLE);
+                    view.showFloatBar();
+                }
+                break;
         }
     }
-    private void loadHtml(@Nullable String type,int id){
+    private void loadNewsHtml(@Nullable String type,int id){
         newsRepository.getNewDetail(new NewsDataSource.LoadDetailCallback() {
             @Override
             public void onDetailLoad(String html) {
@@ -80,10 +88,33 @@ public class DetailWebViewPresenter implements DetailWebViewContract.Presenter{
             }
         },type,id);
     }
+    private void loadTeacherHtml(int id){
+        teachersRepository.getTeacherDetail(new TeachersDataSource.LoadDetailCallback() {
+            @Override
+            public void onDetailLoad(String html) {
+                checkNotNull(html);
+                if (view.isActive()){
+                    view.showHtml(html);
+                }
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                Log.e("DetailHttpFail","HttpFail");
+            }
+        },id);
+    }
 
     @Override
     public void loadHtml() {
-        loadHtml(aNew.getType(),aNew.getNewsPid());
+        switch (type){
+            case DetailWebViewActivity.TYPE_NEW:
+                loadNewsHtml(aNew.getType(),aNew.getNewsPid());
+                break;
+            case DetailWebViewActivity.TYPE_TEACHER:
+                loadTeacherHtml(teacher.getTeacherInfoPid());
+                break;
+        }
     }
 
     @Override
@@ -92,15 +123,26 @@ public class DetailWebViewPresenter implements DetailWebViewContract.Presenter{
     }
 
     @Override
-    public void operateFavoriteNew() {
-        if (floatBarStatus){
-            newsRepository.deleteFavorite(aNew);
-        }else {
-            newsRepository.saveFavorite(aNew);
-        }
-        floatBarStatus=!floatBarStatus;
-        if (view.isActive()){
-            view.showFloatBarStatus(floatBarStatus);
+    public void clickEvent() {
+        switch (type){
+            case DetailWebViewActivity.TYPE_NEW:
+                if (floatBarStatus){
+                    newsRepository.deleteFavorite(aNew);
+                }else {
+                    newsRepository.saveFavorite(aNew);
+                }
+                floatBarStatus=!floatBarStatus;
+                if (view.isActive()){
+                    view.showFloatBarStatus(floatBarStatus);
+                }
+                break;
+            case DetailWebViewActivity.TYPE_TEACHER:
+                Uri uri=Uri.parse(teacher.getHomePage());
+                if (view.isActive()){
+                    view.openUri(uri);
+                }
+                break;
         }
     }
+
 }

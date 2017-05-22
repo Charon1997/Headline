@@ -1,5 +1,7 @@
 package com.nmid.headline.detailwebview;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,8 +13,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.nmid.headline.R;
-import com.nmid.headline.util.ACache;
-import com.nmid.headline.util.AppContext;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -112,7 +112,7 @@ public class DetailWebViewFragment extends Fragment implements DetailWebViewCont
             floatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mPresenter.operateFavoriteNew();
+                    mPresenter.clickEvent();
                 }
             });
         }
@@ -125,6 +125,17 @@ public class DetailWebViewFragment extends Fragment implements DetailWebViewCont
         }else {
             floatingActionButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
         }
+    }
+
+    @Override
+    public void showFloatBar() {
+        floatingActionButton.setImageResource(R.drawable.ic_launch_black_24dp);
+    }
+
+    @Override
+    public void openUri(Uri uri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        getActivity().startActivity(intent);
     }
 
 

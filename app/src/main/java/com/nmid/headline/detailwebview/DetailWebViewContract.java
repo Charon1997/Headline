@@ -1,5 +1,7 @@
 package com.nmid.headline.detailwebview;
 
+import android.net.Uri;
+
 import com.nmid.headline.BasePresenter;
 import com.nmid.headline.BaseView;
 import com.nmid.headline.data.bean.New;
@@ -25,6 +27,10 @@ public interface DetailWebViewContract {
 
         void showFloatBarStatus(boolean saved);
 
+        void showFloatBar();
+
+        void openUri(Uri uri);
+
 
     }
     interface Presenter extends BasePresenter {
@@ -33,7 +39,7 @@ public interface DetailWebViewContract {
 
         void loadUrl();
 
-        void operateFavoriteNew();
+        void clickEvent();
 
     }
 }
