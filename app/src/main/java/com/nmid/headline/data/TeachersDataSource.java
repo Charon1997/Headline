@@ -16,6 +16,8 @@ public interface TeachersDataSource {
 
     int DEFAULT_LIMIT=15;
 
+    int ALL_LIMIT=1000;
+
     interface LoadTeachersCallback{
 
         void onTeachersLoad(List<Teacher> teachers);

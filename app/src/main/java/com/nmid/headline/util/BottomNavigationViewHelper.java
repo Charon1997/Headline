@@ -2,6 +2,7 @@ package com.nmid.headline.util;
 
 /**
  * Created by xwysu on 2017/4/10.
+ * 关闭item超过3个引出的缩放动画
  */
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;

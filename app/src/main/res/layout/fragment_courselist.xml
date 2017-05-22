@@ -26,7 +26,6 @@
             android:layout_height="40dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:cursorVisible="false"
             android:text="2013210534"
             android:padding="2dp"
             android:textSize="12sp"

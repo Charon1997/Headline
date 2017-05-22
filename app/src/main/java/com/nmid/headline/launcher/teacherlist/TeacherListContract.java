@@ -28,6 +28,8 @@ public interface TeacherListContract {
 
         void showError();
 
+        void showFilterTeachers(List<Teacher> teachers);
+
     }
     interface Presenter extends BasePresenter {
 
@@ -36,6 +38,8 @@ public interface TeacherListContract {
         void loadMoreTeachers();
 
         void openTeacherDetails(Teacher teacher);
+
+        void loadFilterTeachers(String filterString);
 
     }
 }

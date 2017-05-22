@@ -3,14 +3,18 @@ package com.nmid.headline.launcher.teacherlist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.nmid.headline.R;
 import com.nmid.headline.data.bean.Teacher;
@@ -36,8 +40,13 @@ public class TeacherListFragment extends Fragment implements TeacherListContract
     @BindView(R.id.refresh_teacher_layout)
     SwipeRefreshLayout refreshTeacherLayout;
     Unbinder unbinder;
-    private static final int lineItems=3;
-    private boolean isLoadingMore=false;
+    private static final int lineItems = 3;
+    @BindView(R.id.filterEdit)
+    EditText filterEdit;
+    @BindView(R.id.filter)
+    ConstraintLayout filter;
+    private boolean isLoadingMore = false;
+
     public static TeacherListFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -50,7 +59,7 @@ public class TeacherListFragment extends Fragment implements TeacherListContract
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter=new TeacherListAdapter(getActivity(),new ArrayList<Teacher>());
+        adapter = new TeacherListAdapter(getActivity(), new ArrayList<Teacher>());
     }
 
     @Nullable
@@ -58,7 +67,25 @@ public class TeacherListFragment extends Fragment implements TeacherListContract
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_teachers, container, false);
         unbinder = ButterKnife.bind(this, root);
-        GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),lineItems);
+        filterEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d("beforeTextChanged",s.toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("onTextChanged",s.toString());
+                Log.d("onTextChanged",filterEdit.getText().toString().trim()+"");
+                mPresenter.loadFilterTeachers(filterEdit.getText().toString().trim());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), lineItems);
         teacherList.setLayoutManager(layoutManager);
         refreshTeacherLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -67,16 +94,17 @@ public class TeacherListFragment extends Fragment implements TeacherListContract
             }
         });
         teacherList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
                 int totalItemCount = layoutManager.getItemCount();
                 //lastVisibleItem >= totalItemCount 表示剩下2个item自动加载
                 // dy>0 表示向下滑动
                 if (lastVisibleItem >= totalItemCount - 2 && dy > 0) {
-                    Log.d("isloading",":"+isLoadingMore);
+                    Log.d("isloading", ":" + isLoadingMore);
                     if (!isLoadingMore) {
-                        isLoadingMore=true;
+                        isLoadingMore = true;
                         mPresenter.loadMoreTeachers();
                     }
                 }
@@ -108,7 +136,7 @@ public class TeacherListFragment extends Fragment implements TeacherListContract
         if (refreshTeacherLayout.isRefreshing()) {
             refreshTeacherLayout.setRefreshing(false);
         }
-        isLoadingMore=false;
+        isLoadingMore = false;
     }
 
     @Override
@@ -147,7 +175,7 @@ public class TeacherListFragment extends Fragment implements TeacherListContract
     @Override
     public void showMoreTeachers(List<Teacher> addNews) {
         adapter.notifyAdd(addNews);
-        isLoadingMore=false;
+        isLoadingMore = false;
     }
 
     @Override
@@ -155,6 +183,15 @@ public class TeacherListFragment extends Fragment implements TeacherListContract
         if (refreshTeacherLayout.isRefreshing()) {
             refreshTeacherLayout.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void showFilterTeachers(List<Teacher> teachers) {
+        adapter.notifyAll(teachers);
+        if (refreshTeacherLayout.isRefreshing()) {
+            refreshTeacherLayout.setRefreshing(false);
+        }
+        isLoadingMore = true;
     }
 
     @Override

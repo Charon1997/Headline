@@ -66,12 +66,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.bottom_nav_news:
+                        actionBar.show();
+                        actionBar.setShowHideAnimationEnabled(false);
                         actionBar.setTitle(R.string.bottom_nav_tab1);
                         collegeNewsFragment=(NewsPageFragment)fragmentManager.findFragmentByTag(NewsRepository.TYPE_JINGWEI) ;
                         getSupportFragmentManager().beginTransaction().hide(currentFragment).show(collegeNewsFragment).commit();
                         currentFragment=collegeNewsFragment;
                         break;
                     case R.id.bottom_nav_newsletter:
+                        actionBar.show();
+                        actionBar.setShowHideAnimationEnabled(false);
                         newsletterFragment=(NewsPageFragment)fragmentManager.findFragmentByTag(NewsRepository.TYPE_NEWS) ;
                         if (newsletterFragment==null){
                             newsletterFragment=NewsPageFragment.newInstance(NewsRepository.TYPE_NEWS);
@@ -95,9 +99,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                         currentFragment=teacherListFragment;
                         teacherListPresenter =new TeacherListPresenter(teacherListFragment, TeachersRepository.getInstance());
-                        actionBar.setTitle(R.string.bottom_nav_tab3);
+                        actionBar.hide();
+                        actionBar.setShowHideAnimationEnabled(false);
                         break;
                     case R.id.bottom_nav_explore:
+                        actionBar.show();
+                        actionBar.setShowHideAnimationEnabled(false);
                         userActionFragment=(UserActionFragment) fragmentManager.findFragmentByTag(UserActionFragment.class.getSimpleName()) ;
                         if (userActionFragment==null){
                             userActionFragment=UserActionFragment.newInstance();

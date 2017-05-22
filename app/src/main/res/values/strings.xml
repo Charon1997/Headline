@@ -9,5 +9,6 @@
     <string name="course_title">学生课表</string>
     <string name="about">关于</string>
     <string name="favorite">我的收藏</string>
+    <string name="filter_teacher_name">输入待查询的教师姓名</string>
 
 </resources>
