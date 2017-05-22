@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/filterEdit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="16sp"
+        android:hint="@string/filter_teacher_name"
+        android:textColorHint="@color/colorPrimaryEdit"
+        android:background="@drawable/shape_rectangle_bluelight"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:drawableTint="@color/white" />
+</LinearLayout>
+
+

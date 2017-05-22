@@ -8,9 +8,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.nmid.headline.R;
@@ -44,16 +50,26 @@ public class MainActivity extends AppCompatActivity {
     TeacherListPresenter teacherListPresenter;
     UserActionFragment userActionFragment;
     UserActionPresenter userActionPresenter;
+    EditText filterEdit;
     Fragment currentFragment;
+    View view;
+    private boolean actionbarVisible=true;
+    private final String ACTIONBAR_STATUS="actionbar";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         actionBar = getSupportActionBar();
-        BottomNavigationViewHelper.disableShiftMode(bottomNav);
-        final FragmentManager fragmentManager=getSupportFragmentManager();
+        view= getLayoutInflater().inflate(R.layout.actionbar_filter,new LinearLayout(this), false);
+        filterEdit=(EditText)view.findViewById(R.id.filterEdit);
+        actionBar.setCustomView(view);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(false);
         actionBar.setTitle(R.string.bottom_nav_tab1);
+        BottomNavigationViewHelper.disableShiftMode(bottomNav);
+
+        final FragmentManager fragmentManager=getSupportFragmentManager();
         collegeNewsFragment=(NewsPageFragment)fragmentManager.findFragmentByTag(NewsRepository.TYPE_JINGWEI) ;
         if (collegeNewsFragment==null){
             collegeNewsFragment=NewsPageFragment.newInstance(NewsRepository.TYPE_JINGWEI);
@@ -66,16 +82,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.bottom_nav_news:
-                        actionBar.show();
-                        actionBar.setShowHideAnimationEnabled(false);
+                        actionBar.setDisplayShowTitleEnabled(true);
+                        actionBar.setDisplayShowCustomEnabled(false);
                         actionBar.setTitle(R.string.bottom_nav_tab1);
                         collegeNewsFragment=(NewsPageFragment)fragmentManager.findFragmentByTag(NewsRepository.TYPE_JINGWEI) ;
                         getSupportFragmentManager().beginTransaction().hide(currentFragment).show(collegeNewsFragment).commit();
                         currentFragment=collegeNewsFragment;
                         break;
                     case R.id.bottom_nav_newsletter:
-                        actionBar.show();
-                        actionBar.setShowHideAnimationEnabled(false);
+                        actionBar.setDisplayShowTitleEnabled(true);
+                        actionBar.setDisplayShowCustomEnabled(false);
                         newsletterFragment=(NewsPageFragment)fragmentManager.findFragmentByTag(NewsRepository.TYPE_NEWS) ;
                         if (newsletterFragment==null){
                             newsletterFragment=NewsPageFragment.newInstance(NewsRepository.TYPE_NEWS);
@@ -89,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
                         actionBar.setTitle(R.string.bottom_nav_tab2);
                         break;
                     case R.id.bottom_nav_teachers:
+                        actionBar.setDisplayShowTitleEnabled(false);
+                        actionBar.setDisplayShowCustomEnabled(true);
                         teacherListFragment=(TeacherListFragment) fragmentManager.findFragmentByTag(TeacherListFragment.class.getSimpleName()) ;
                         if (teacherListFragment==null){
                             teacherListFragment=TeacherListFragment.newInstance();
@@ -99,12 +117,11 @@ public class MainActivity extends AppCompatActivity {
                         }
                         currentFragment=teacherListFragment;
                         teacherListPresenter =new TeacherListPresenter(teacherListFragment, TeachersRepository.getInstance());
-                        actionBar.hide();
-                        actionBar.setShowHideAnimationEnabled(false);
+                        initEdit();
                         break;
                     case R.id.bottom_nav_explore:
-                        actionBar.show();
-                        actionBar.setShowHideAnimationEnabled(false);
+                        actionBar.setDisplayShowTitleEnabled(true);
+                        actionBar.setDisplayShowCustomEnabled(false);
                         userActionFragment=(UserActionFragment) fragmentManager.findFragmentByTag(UserActionFragment.class.getSimpleName()) ;
                         if (userActionFragment==null){
                             userActionFragment=UserActionFragment.newInstance();
@@ -122,6 +139,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void initEdit(){
+        filterEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d("beforeTextChanged", s.toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("onTextChanged", s.toString());
+                Log.d("onTextChanged", filterEdit.getText().toString().trim() + "");
+                teacherListPresenter.loadFilterTeachers(filterEdit.getText().toString().trim());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        filterEdit.setText("");
+    }
 
     @Override
     protected void onStop() {
@@ -134,4 +177,5 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d(MainActivity.class.getSimpleName(),"onDestroy");
     }
+
 }

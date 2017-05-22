@@ -3,7 +3,6 @@ package com.nmid.headline.launcher.teacherlist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.nmid.headline.R;
 import com.nmid.headline.data.bean.Teacher;
@@ -35,16 +33,12 @@ public class TeacherListFragment extends Fragment implements TeacherListContract
 
     TeacherListContract.Presenter mPresenter;
     TeacherListAdapter adapter;
+    private static final int lineItems = 3;
     @BindView(R.id.teacher_list)
     RecyclerView teacherList;
     @BindView(R.id.refresh_teacher_layout)
     SwipeRefreshLayout refreshTeacherLayout;
     Unbinder unbinder;
-    private static final int lineItems = 3;
-    @BindView(R.id.filterEdit)
-    EditText filterEdit;
-    @BindView(R.id.filter)
-    ConstraintLayout filter;
     private boolean isLoadingMore = false;
 
     public static TeacherListFragment newInstance() {
@@ -67,24 +61,6 @@ public class TeacherListFragment extends Fragment implements TeacherListContract
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_teachers, container, false);
         unbinder = ButterKnife.bind(this, root);
-        filterEdit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Log.d("beforeTextChanged",s.toString());
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("onTextChanged",s.toString());
-                Log.d("onTextChanged",filterEdit.getText().toString().trim()+"");
-                mPresenter.loadFilterTeachers(filterEdit.getText().toString().trim());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), lineItems);
         teacherList.setLayoutManager(layoutManager);
         refreshTeacherLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -117,6 +93,7 @@ public class TeacherListFragment extends Fragment implements TeacherListContract
             }
         });
         teacherList.setAdapter(adapter);
+
         return root;
     }
 
