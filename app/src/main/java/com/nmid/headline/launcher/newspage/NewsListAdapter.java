@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.nmid.headline.R;
 import com.nmid.headline.data.bean.Image;
 import com.nmid.headline.data.bean.New;
+import com.nmid.headline.util.PicassoUtil;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -61,8 +64,10 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        New temp = news.get(holder.getAdapterPosition());
+        New temp = news.get(position);
         List<Image> tempImages=temp.getImage();
+        //这里ViewHolder的复用会导致图片加载混乱，所以关掉了，可以通过优化解决这个问题
+        holder.setIsRecyclable(false);
         switch (tempImages.size()){
             case 0:
                 holder.image1.setVisibility(View.GONE);
@@ -70,19 +75,25 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
                 holder.image3.setVisibility(View.GONE);
                 break;
             case 1:
-                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(240,135).centerCrop().into(holder.image1);
+                holder.image1.setTag(tempImages.get(0).getUrl());
+                PicassoUtil.loadNewsListImage(holder.image1);
                 holder.image2.setVisibility(View.GONE);
                 holder.image3.setVisibility(View.GONE);
                 break;
             case 2:
-                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(240,135).centerCrop().into(holder.image1);
-                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(240,135).centerCrop().into(holder.image2);
-                holder.image1.setVisibility(View.GONE);
+                holder.image1.setTag(tempImages.get(0).getUrl());
+                PicassoUtil.loadNewsListImage(holder.image1);
+                holder.image2.setTag(tempImages.get(1).getUrl());
+                PicassoUtil.loadNewsListImage(holder.image2);
+                holder.image3.setVisibility(View.GONE);
                 break;
             case 3:
-                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(240,135).centerCrop().into(holder.image1);
-                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(240,135).centerCrop().into(holder.image2);
-                Picasso.with(holder.image1.getContext()).load(tempImages.get(0).getUrl()).resize(240,135).centerCrop().into(holder.image3);
+                holder.image1.setTag(tempImages.get(0).getUrl());
+                PicassoUtil.loadNewsListImage(holder.image1);
+                holder.image2.setTag(tempImages.get(1).getUrl());
+                PicassoUtil.loadNewsListImage(holder.image2);
+                holder.image3.setTag(tempImages.get(2).getUrl());
+                PicassoUtil.loadNewsListImage(holder.image3);
                 break;
         }
         holder.title.setText(temp.getTitle());

@@ -14,6 +14,15 @@ android {
             enabled true
         }
     }
+    signingConfigs {
+        release {
+            storeFile file("nmid.jks")
+            storePassword "xinkeS809"
+            keyAlias "nexuslink"
+            keyPassword "xinkeS809"
+            v2SigningEnabled false
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
