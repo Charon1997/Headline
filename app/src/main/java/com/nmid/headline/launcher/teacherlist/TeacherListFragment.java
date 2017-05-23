@@ -78,7 +78,6 @@ public class TeacherListFragment extends Fragment implements TeacherListContract
                 //lastVisibleItem >= totalItemCount 表示剩下2个item自动加载
                 // dy>0 表示向下滑动
                 if (lastVisibleItem >= totalItemCount - 2 && dy > 0) {
-                    Log.d("isloading", ":" + isLoadingMore);
                     if (!isLoadingMore) {
                         isLoadingMore = true;
                         mPresenter.loadMoreTeachers();

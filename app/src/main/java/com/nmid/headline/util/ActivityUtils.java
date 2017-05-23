@@ -16,17 +16,18 @@
 
 package com.nmid.headline.util;
 
-import android.content.Context;
+
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.Toast;
+
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * This provides methods to help Activities load their UI.
+ * 从google的sample中借鉴的写法，添加了新的参数
  */
 public class ActivityUtils {
 
@@ -43,32 +44,4 @@ public class ActivityUtils {
         transaction.add(frameId, fragment,tag);
         transaction.commit();
     }
-
-//    /**
-//     *
-//     * 反射实现的fragment切换，实在想不出优雅的写法了
-//     */
-//    public static <T> void switchFragment(@NonNull FragmentManager fragmentManager,
-//                                          Context context,int frameId, String tag, Class<T> tClass) {
-//        checkNotNull(fragmentManager);
-//        T fragment=(T)fragmentManager.findFragmentByTag(tag);
-//        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//        if (fragment==null){
-//            try {
-//                fragment=(T) tClass.newInstance();
-//            } catch (InstantiationException e) {
-//                e.printStackTrace();
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//            transaction.add(frameId, (Fragment) fragment,tag);
-//            transaction.commit();
-//        }else {
-//            transaction.show((Fragment)fragment);
-//            transaction.commit();
-//        }
-//
-//
-//    }
-
 }

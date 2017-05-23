@@ -5,7 +5,7 @@ import com.nmid.headline.BaseView;
 
 /**
  * Created by xwysu on 2016/12/4.
- * 最后一部分，用户相关操作
+ * Tab4 更多
  */
 
 public interface UserActionContract {

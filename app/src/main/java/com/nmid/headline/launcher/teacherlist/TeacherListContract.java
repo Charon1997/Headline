@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Created by xwysu on 2016/12/4.
- * 第二部分，教师列表
+ * Tab3，教师列表
  */
 
 public interface TeacherListContract {

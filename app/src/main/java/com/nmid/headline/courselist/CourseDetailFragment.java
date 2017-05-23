@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
+ * 课表详情
  * Created by xwysu on 2017/5/15.
  */
 

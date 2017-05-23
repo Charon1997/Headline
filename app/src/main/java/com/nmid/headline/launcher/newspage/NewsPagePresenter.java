@@ -21,7 +21,6 @@ public class NewsPagePresenter implements NewsPageContract.Presenter {
 
     private final NewsRepository mNewsRepository;
     private final NewsPageContract.View mNewsView;
-    private boolean mFirstLoad = true;
     //recordId用来记录最后的PID，是实际上的lastId，因为MVP的特性，这样写好一些
     int recordId=0;
     String type;
@@ -43,7 +42,6 @@ public class NewsPagePresenter implements NewsPageContract.Presenter {
         loadNews(NewsDataSource.FIRST_REQUEST);
     }
     private void loadNews(int lastId){
-        Log.d("lastid","lastid "+lastId+" recordID "+recordId);
         mNewsRepository.getNews(new NewsDataSource.LoadNewsCallback() {
             @Override
             public void onNewsLoaded(List<New> news) {

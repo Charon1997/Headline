@@ -7,6 +7,7 @@ import com.nmid.headline.data.bean.Teacher;
 import java.util.List;
 
 /**
+ * 教师页面的数据源
  * Created by xwysu on 2017/4/8.
  */
 

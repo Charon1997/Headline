@@ -7,6 +7,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 /**
  * Created by xwysu on 2017/5/10.
+ * 用于全局获取Context对象，并且对AndroidThreeTen（java.util.time）进行注册
  */
 
 public class AppContext extends Application{

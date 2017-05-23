@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    //由于大量使用ConstraintLayout，没有进行整理
     <dimen name="schedule_item_padding">8dp</dimen>
 </resources>

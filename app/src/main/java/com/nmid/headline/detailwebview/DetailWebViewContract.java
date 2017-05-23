@@ -7,6 +7,7 @@ import com.nmid.headline.BaseView;
 import com.nmid.headline.data.bean.New;
 
 /**
+ * 详情界面，包含了新闻和教师的详情
  * Created by xwysu on 2016/12/4.
  */
 

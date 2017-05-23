@@ -76,7 +76,7 @@ public class DetailWebViewActivity extends AppCompatActivity {
                 mPresenter=new DetailWebViewPresenter(teacher,TeachersRepository.getInstance(),teacherFragment);
                 break;
             case -1:
-                Toast.makeText(this,"内部错误",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,R.string.error_app,Toast.LENGTH_SHORT).show();
                 break;
         }
     }

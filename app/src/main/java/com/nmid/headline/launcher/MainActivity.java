@@ -5,22 +5,17 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.nmid.headline.R;
-import com.nmid.headline.data.CourseRepository;
 import com.nmid.headline.data.NewsRepository;
 import com.nmid.headline.data.TeachersRepository;
 import com.nmid.headline.launcher.newspage.NewsPageFragment;
@@ -53,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
     EditText filterEdit;
     Fragment currentFragment;
     View view;
-    private boolean actionbarVisible=true;
-    private final String ACTIONBAR_STATUS="actionbar";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,13 +136,10 @@ public class MainActivity extends AppCompatActivity {
         filterEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Log.d("beforeTextChanged", s.toString());
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("onTextChanged", s.toString());
-                Log.d("onTextChanged", filterEdit.getText().toString().trim() + "");
                 teacherListPresenter.loadFilterTeachers(filterEdit.getText().toString().trim());
             }
 
@@ -169,13 +159,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(MainActivity.class.getSimpleName(),"onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(MainActivity.class.getSimpleName(),"onDestroy");
     }
 
 }

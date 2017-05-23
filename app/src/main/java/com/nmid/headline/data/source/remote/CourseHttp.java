@@ -39,12 +39,10 @@ public class CourseHttp {
     }
 
     public void  getCourseList(@NonNull CourseDataSource.LoadCourseCallback callback,String stuNum,String stuId){
-        Log.d(getClass().getSimpleName(),"CourseHttp getCourseList load");
         Call<CourseResult<Course>> call=httpService.getCourse(stuNum,stuId);
         call.enqueue(new Callback<CourseResult<Course>>() {
             @Override
             public void onResponse(Call<CourseResult<Course>> call, Response<CourseResult<Course>> response) {
-                Log.d(getClass().getSimpleName(),"CourseHttp getCourseList callback");
                 checkNotNull(response.body());
                 callback.onCourseLoaded(response.body().getData(),response.body().getNowWeek());
             }

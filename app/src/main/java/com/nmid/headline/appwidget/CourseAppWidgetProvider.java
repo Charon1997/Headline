@@ -18,6 +18,7 @@ import com.nmid.headline.data.bean.Course;
 import java.util.List;
 
 /**
+ * 桌面小控件
  * Created by xwysu on 2017/5/13.
  */
 

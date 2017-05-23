@@ -118,6 +118,10 @@ public class DetailWebViewFragment extends Fragment implements DetailWebViewCont
         }
     }
 
+    /**
+     * 仅用于NewDetail相关界面
+     * @param saved
+     */
     @Override
     public void showFloatBarStatus(boolean saved) {
         if (saved){
@@ -127,6 +131,9 @@ public class DetailWebViewFragment extends Fragment implements DetailWebViewCont
         }
     }
 
+    /**
+     * 仅用于TeacherDetail界面
+     */
     @Override
     public void showFloatBar() {
         floatingActionButton.setImageResource(R.drawable.ic_launch_black_24dp);

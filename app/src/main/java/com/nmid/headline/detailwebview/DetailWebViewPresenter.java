@@ -84,7 +84,6 @@ public class DetailWebViewPresenter implements DetailWebViewContract.Presenter{
 
             @Override
             public void onDataNotAvailable() {
-                Log.e("DetailHttpFail","HttpFail");
             }
         },type,id);
     }
@@ -100,7 +99,6 @@ public class DetailWebViewPresenter implements DetailWebViewContract.Presenter{
 
             @Override
             public void onDataNotAvailable() {
-                Log.e("DetailHttpFail","HttpFail");
             }
         },id);
     }

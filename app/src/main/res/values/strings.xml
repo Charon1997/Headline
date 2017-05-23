@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">通信头条</string>
+    <string name="app_version">3.0</string>
+    <string name="app_developer">重邮移动互联网应用工程研究中心</string>
+    <string name="app_design">Design By</string>
     <string name="bottom_nav_tab1">学院经纬</string>
     <string name="bottom_nav_tab2">校内新闻</string>
     <string name="bottom_nav_tab3">教师博客</string>
@@ -10,5 +13,10 @@
     <string name="about">关于</string>
     <string name="favorite">我的收藏</string>
     <string name="filter_teacher_name">输入待查询的教师姓名</string>
+    <string name="error_app">内部错误</string>
+    <string name="error_input">查询失败，请检查输入数据是否正确</string>
+    <string name="error_internet">查询失败，请检查网络连接</string>
+    <string name="error_cache_stu">请先输入学号</string>
+    <string name="back_this_week">回到本周</string>
 
 </resources>

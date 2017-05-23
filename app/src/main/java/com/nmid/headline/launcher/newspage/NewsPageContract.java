@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Created by xwysu on 2016/12/4.
- * 第一部分，主要是新闻
+ * Tab1、2，主要是新闻
  */
 
 public interface NewsPageContract {

@@ -17,6 +17,7 @@
         android:layout_rowWeight="1"
         android:padding="6dp"
         android:src="@drawable/ic_loop_black_18dp"
+        android:background="@drawable/shape_rectangle_table"
         android:backgroundTintMode="add"
         android:tint="@color/iconTintBlue"/>
     <TextView
@@ -28,6 +29,7 @@
         android:layout_rowWeight="1"
         android:layout_row="0"
         android:layout_column="1"
+        android:background="@drawable/shape_rectangle_table"
         android:text="1-2"
         />
     <TextView
@@ -39,6 +41,7 @@
         android:layout_rowWeight="1"
         android:layout_row="0"
         android:layout_column="2"
+        android:background="@drawable/shape_rectangle_table"
         android:text="3-4"
         />
     <TextView
@@ -50,6 +53,7 @@
         android:layout_rowWeight="1"
         android:layout_row="0"
         android:layout_column="3"
+        android:background="@drawable/shape_rectangle_table"
         android:text="5-6"
         />
     <TextView
@@ -61,6 +65,7 @@
         android:layout_rowWeight="1"
         android:layout_row="0"
         android:layout_column="4"
+        android:background="@drawable/shape_rectangle_table"
         android:text="7-8"
         />
     <TextView
@@ -72,6 +77,7 @@
         android:layout_rowWeight="1"
         android:layout_row="0"
         android:layout_column="5"
+        android:background="@drawable/shape_rectangle_table"
         android:text="9-10"
         />
     <TextView
@@ -83,17 +89,19 @@
         android:layout_rowWeight="1"
         android:layout_row="0"
         android:layout_column="6"
+        android:background="@drawable/shape_rectangle_table"
         android:text="11-12"
         />
 
     <TextView
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:layout_height="70dp"
         android:layout_column="0"
         android:layout_columnWeight="1"
         android:layout_gravity="center"
         android:layout_row="1"
         android:layout_rowWeight="1"
+        android:background="@drawable/shape_rectangle_table"
         android:padding="2dp"
         android:text="课程" />
 
@@ -104,6 +112,7 @@
         android:textSize="12sp"
         android:padding="2dp"
         android:layout_gravity="center"
+        android:background="@drawable/shape_rectangle_table"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:layout_row="1"
@@ -120,6 +129,7 @@
         android:layout_rowWeight="1"
         android:layout_row="1"
         android:layout_column="2"
+        android:background="@drawable/shape_rectangle_table"
         />
     <TextView
         android:id="@+id/course3"
@@ -128,6 +138,7 @@
         android:textSize="12sp"
         android:padding="2dp"
         android:layout_gravity="center"
+        android:background="@drawable/shape_rectangle_table"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:layout_row="1"
@@ -142,6 +153,7 @@
         android:layout_gravity="center"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
+        android:background="@drawable/shape_rectangle_table"
         android:layout_row="1"
         android:layout_column="4"
         />
@@ -153,6 +165,7 @@
         android:padding="2dp"
         android:layout_gravity="center"
         android:layout_columnWeight="1"
+        android:background="@drawable/shape_rectangle_table"
         android:layout_rowWeight="1"
         android:layout_row="1"
         android:layout_column="5"
@@ -164,6 +177,7 @@
         android:textSize="12sp"
         android:padding="2dp"
         android:layout_gravity="center"
+        android:background="@drawable/shape_rectangle_table"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:layout_row="1"
@@ -171,13 +185,14 @@
         />
 
     <TextView
-        android:layout_width="40dp"
+        android:layout_width="45dp"
         android:layout_height="70dp"
         android:layout_column="0"
         android:layout_columnWeight="1"
         android:layout_gravity="center"
         android:layout_row="2"
         android:layout_rowWeight="1"
+        android:background="@drawable/shape_rectangle_table"
         android:padding="2dp"
         android:text="教室" />
     <TextView
@@ -187,6 +202,7 @@
         android:textSize="12sp"
         android:padding="2dp"
         android:layout_gravity="center"
+        android:background="@drawable/shape_rectangle_table"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:layout_row="2"
@@ -199,6 +215,7 @@
         android:textSize="12sp"
         android:padding="2dp"
         android:layout_gravity="center"
+        android:background="@drawable/shape_rectangle_table"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:layout_row="2"
@@ -211,6 +228,7 @@
         android:textSize="12sp"
         android:padding="2dp"
         android:layout_gravity="center"
+        android:background="@drawable/shape_rectangle_table"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:layout_row="2"
@@ -223,6 +241,7 @@
         android:textSize="12sp"
         android:padding="2dp"
         android:layout_gravity="center"
+        android:background="@drawable/shape_rectangle_table"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:layout_row="2"
@@ -236,6 +255,7 @@
         android:padding="2dp"
         android:layout_gravity="center"
         android:layout_columnWeight="1"
+        android:background="@drawable/shape_rectangle_table"
         android:layout_rowWeight="1"
         android:layout_row="2"
         android:layout_column="5"
@@ -247,6 +267,7 @@
         android:textSize="12sp"
         android:padding="2dp"
         android:layout_gravity="center"
+        android:background="@drawable/shape_rectangle_table"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:layout_row="2"

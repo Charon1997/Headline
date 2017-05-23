@@ -1,6 +1,6 @@
 package com.nmid.headline.util;
 /**
- * 超级坑的一个github的辅助类，添加了previousTotal在下拉刷新之后的判断
+ *原为github上出名的一个辅助类，但是有一些BUG，已修复
  */
 
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,7 +30,6 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
         visibleItemCount = recyclerView.getChildCount();
         totalItemCount = mLinearLayoutManager.getItemCount();
         firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
-        Log.d("onscroll ","totalItemCount "+totalItemCount+" previousTotal "+previousTotal);
         if (loading) {
             if (totalItemCount > previousTotal) {
                 loading = false;

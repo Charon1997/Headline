@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * 我的收藏所在的activity
  * 复用了NewsPageFragment相关的代码
  */
 

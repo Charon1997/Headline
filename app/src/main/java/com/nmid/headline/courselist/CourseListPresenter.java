@@ -1,10 +1,10 @@
 package com.nmid.headline.courselist;
 
-import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.nmid.headline.R;
 import com.nmid.headline.data.CourseDataSource;
 import com.nmid.headline.data.CourseRepository;
 import com.nmid.headline.data.bean.Course;
@@ -47,14 +47,14 @@ public class CourseListPresenter implements CourseListContract.Presenter{
                         mCourseView.setWeekInfo(nowWeek);
                     }
                 }else {
-                    Toast.makeText(AppContext.getContext(),"查询失败，请检查输入数据是否正确",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AppContext.getContext(), R.string.error_input,Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onDataNotAvailable() {
-
+                    Toast.makeText(AppContext.getContext(),R.string.error_internet,Toast.LENGTH_SHORT).show();
             }
         },stuNum,stuId);
     }
@@ -125,7 +125,7 @@ public class CourseListPresenter implements CourseListContract.Presenter{
         if (!savedStuNum.equals("")){
             loadHttpCourse(savedStuNum,"");
         }else {
-            Log.d(getClass().getSimpleName(),"stuNum is empty");
+            Toast.makeText(AppContext.getContext(), R.string.error_cache_stu,Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -140,8 +140,6 @@ public class CourseListPresenter implements CourseListContract.Presenter{
     public void loadOldCourseList() {
         if (savedStuNum!=null&&!savedStuNum.equals("")){
             loadOldCourse();
-        }else {
-            Log.d(getClass().getSimpleName(),"stuNum is empty");
         }
     }
 }

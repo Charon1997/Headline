@@ -8,6 +8,7 @@ import com.nmid.headline.data.bean.New;
 import java.util.List;
 
 /**
+ * 新闻数据源操作类
  * Created by xwysu on 2017/4/8.
  */
 

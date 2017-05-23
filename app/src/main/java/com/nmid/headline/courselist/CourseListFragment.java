@@ -233,7 +233,9 @@ public class CourseListFragment extends Fragment implements CourseListContract.V
     @Override
     public void setWeekInfo(int week) {
         scheduleAllWeek.setText(week+"周");
-        spinner.setSelection(week-1,true);
+        if (week<=mItems.length){
+            spinner.setSelection(week-1,true);
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.nmid.headline.data.bean.Course;
 import java.util.List;
 
 /**
+ * 课表界面
  * Created by xwysu on 2016/12/4.
  */
 
